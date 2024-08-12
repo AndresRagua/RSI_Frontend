@@ -6,6 +6,9 @@ import Footer from '../../components/Footer';
 import '../../static/css/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importación de los estilos de Bootstrap
 
+// URL del backend (puede cambiar según el entorno)
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
 // Función para transformar la URL de Dropbox
 const transformDropboxUrl = (url) => {
   return url?.replace("www.dropbox.com", "dl.dropboxusercontent.com").replace("?dl=0", "");
@@ -57,7 +60,7 @@ function Home() {
 
   const fetchRadios = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/radio/obtener");
+      const res = await axios.get(`${API_URL}/radio/obtener`);
       setRadios(res.data);
       if (res.data.length > 0) {
         setSelectedRadio(res.data[0].id); // Selecciona la primera radio por defecto
@@ -70,7 +73,7 @@ function Home() {
 
   const fetchServiciosSociales = async (radioId) => {
     try {
-      const res = await axios.get(`http://localhost:8000/servicio_social/?radio_id=${radioId}`);
+      const res = await axios.get(`${API_URL}/servicio_social/?radio_id=${radioId}`);
       setServiciosSociales(res.data);
     } catch (error) {
       console.error("Error fetching servicios sociales:", error);
@@ -79,7 +82,7 @@ function Home() {
 
   const fetchPublicidades = async (radioId) => {
     try {
-      const res = await axios.get(`http://localhost:8000/publicidad/?radio_id=${radioId}`);
+      const res = await axios.get(`${API_URL}/publicidad/?radio_id=${radioId}`);
       setPublicidades(res.data);
     } catch (error) {
       console.error("Error fetching publicidades:", error)
@@ -88,7 +91,7 @@ function Home() {
 
   const fetchProgramas = async (radioId) => {
     try {
-      const res = await axios.get(`http://localhost:8000/programa/?radio_id=${radioId}`);
+      const res = await axios.get(`${API_URL}/programa/?radio_id=${radioId}`);
       const programasData = res.data.map(programa => {
         const programacionesAgrupadas = groupProgramacionesByMonthAndYear(programa.programaciones);
         return { ...programa, programacionesAgrupadas };
@@ -101,7 +104,7 @@ function Home() {
 
   const fetchArtistas = async (radioId) => {
     try {
-      const res = await axios.get(`http://localhost:8000/artista/?radio_id=${radioId}`);
+      const res = await axios.get(`${API_URL}/artista/?radio_id=${radioId}`);
       setArtistas(res.data);
     } catch (error) {
       console.error("Error fetching artistas:", error);
