@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, Button } from 'reactstrap';
 import logo_rs from '../static/img/Logos/Logo_RS/logo_rs.svg';
 
-
 const AdminNavBar = () => {
     const [isOpen, setIsOpen] = React.useState(false);
     const navigate = useNavigate();

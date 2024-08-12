@@ -4,6 +4,9 @@ import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, Dropdown, D
 import logo_rs from '../static/img/Logos/Logo_RS/logo_rs.svg';
 import axios from 'axios';
 
+// URL del backend (puede cambiar según el entorno)
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
 const NavBarPublic = ({ selectedRadio, setSelectedRadio }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [radios, setRadios] = useState([]);
@@ -18,7 +21,7 @@ const NavBarPublic = ({ selectedRadio, setSelectedRadio }) => {
 
   const fetchRadios = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/radio/obtener");
+      const res = await axios.get(`${API_URL}/radio/obtener`);
       setRadios(res.data);
     } catch (error) {
       console.error("Error fetching radios:", error);
