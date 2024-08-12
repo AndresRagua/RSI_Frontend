@@ -4,10 +4,12 @@ import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, Dropdown, D
 import logo_rs from '../static/img/Logos/Logo_RS/logo_rs.svg';
 import axios from 'axios';
 
-// URL del backend (puede cambiar según el entorno)
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000'; // Usa la variable de entorno o una URL por defecto
+// Intenta conectar primero con localhost y, si no está disponible, utiliza la dirección de producción
+const API_URL = window.location.hostname === 'localhost' 
+  ? 'http://localhost:8000' 
+  : 'https://167.99.152.5';
 
-
+  
 const NavBarPublic = ({ selectedRadio, setSelectedRadio }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [radios, setRadios] = useState([]);

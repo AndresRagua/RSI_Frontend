@@ -6,8 +6,10 @@ import Footer from '../../components/Footer';
 import '../../static/css/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importación de los estilos de Bootstrap
 
-// URL del backend (puede cambiar según el entorno)
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000'; // Usa la variable de entorno o una URL por defecto
+// Intenta conectar primero con localhost y, si no está disponible, utiliza la dirección de producción
+const API_URL = window.location.hostname === 'localhost' 
+  ? 'http://localhost:8000' 
+  : 'https://167.99.152.5';
 
 // Función para transformar la URL de Dropbox
 const transformDropboxUrl = (url) => {
