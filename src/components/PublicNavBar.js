@@ -5,7 +5,7 @@ import logo_rs from '../static/img/Logos/Logo_RS/logo_rs.svg';
 import axios from 'axios';
 
 // URL del backend (puede cambiar según el entorno)
-const API_URL = 'http://164.90.253.215/';
+const API_URL = 'http://167.99.152.5';
 
 const NavBarPublic = ({ selectedRadio, setSelectedRadio }) => {
   const [isOpen, setIsOpen] = useState(false);
