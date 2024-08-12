@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
+// URL del backend (puede cambiar según el entorno)
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,7 +15,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/admin/login', { email, password });
+      const response = await axios.post(`${API_URL}/admin/login`, { email, password });
       localStorage.setItem('token', response.data.token);
       navigate('/admin');
     } catch (error) {

@@ -3,6 +3,10 @@ import axios from "axios";
 import AdminNavBar from "../../components/AdminNavBar";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
+// URL del backend (puede cambiar según el entorno)
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
+
 function Administrador() {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -29,7 +33,7 @@ function Administrador() {
   }, []);
 
   const fetchAdministradores = async () => {
-    const res = await axios.get("http://localhost:8000/admin/obtener");
+    const res = await axios.get(`${API_URL}/admin/obtener`);
     setAdministradores(res.data);
   };
 
@@ -39,7 +43,7 @@ function Administrador() {
       alert("Las contraseñas no coinciden");
       return;
     }
-    await axios.post("http://localhost:8000/admin/agregar", {
+    await axios.post(`${API_URL}/admin/agregar`, {
       nombre,
       apellido,
       email,
@@ -72,7 +76,7 @@ function Administrador() {
     }
 
     if (editingAdministrador) {
-      await axios.put(`http://localhost:8000/admin/${editingAdministrador.id_administrador}`, updatedFields);
+      await axios.put(`${API_URL}/admin/${editingAdministrador.id_administrador}`, updatedFields);
       fetchAdministradores();
       setEditingAdministrador(null);
       setEditingFields({
@@ -101,7 +105,7 @@ function Administrador() {
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:8000/admin/${id}`);
+    await axios.delete(`${API_URL}/admin/${id}`);
     fetchAdministradores();
   };
 
