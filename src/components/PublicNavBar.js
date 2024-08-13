@@ -5,7 +5,7 @@ import logo_rs from '../static/img/Logos/Logo_RS/logo_rs.svg';
 import axios from 'axios';
 
 // URL del backend (puede cambiar según el entorno)
-const API_URL = process.env.REACT_APP_API_URL || 'https://167.99.152.5'; // Usa la variable de entorno o la URL de producción
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000'; // Usa la variable de entorno o una URL por defecto
 
 
 const NavBarPublic = ({ selectedRadio, setSelectedRadio }) => {
