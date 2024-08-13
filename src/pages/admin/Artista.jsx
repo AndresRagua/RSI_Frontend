@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AdminNavBar from "../../components/AdminNavBar";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 // Función para transformar la URL de Dropbox
 const transformDropboxUrl = (url) => {
   return url.replace("www.dropbox.com", "dl.dropboxusercontent.com").replace("?dl=0", "");
@@ -24,23 +26,24 @@ function Artista() {
   });
 
   useEffect(() => {
+    document.title = "Artistas";
     fetchArtistas();
     fetchRadios();
   }, []);
 
   const fetchArtistas = async () => {
-    const res = await axios.get("http://localhost:8000/artista/");
+    const res = await axios.get(`${API_URL}/artista/`);
     setArtistas(res.data);
   };
 
   const fetchRadios = async () => {
-    const res = await axios.get("http://localhost:8000/radio/obtener");
+    const res = await axios.get(`${API_URL}/radio/obtener`);
     setRadios(res.data);
   };
 
   const handleAddSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:8000/artista/", {
+    await axios.post(`${API_URL}/artista/`, {
       nombre,
       informacion,
       url_image: urlImage,
@@ -58,7 +61,7 @@ function Artista() {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     if (editingArtista) {
-      await axios.put(`http://localhost:8000/artista/${editingArtista.id_artista}`, {
+      await axios.put(`${API_URL}/artista/${editingArtista.id_artista}`, {
         nombre: editingFields.nombre,
         informacion: editingFields.informacion,
         url_image: editingFields.urlImage,
@@ -90,7 +93,7 @@ function Artista() {
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:8000/artista/${id}`);
+    await axios.delete(`${API_URL}/artista/${id}`);
     fetchArtistas();
   };
 

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AdminNavBar from "../../components/AdminNavBar";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 // Función para transformar la URL de Dropbox
 const transformDropboxUrl = (url) => {
   return url.replace("www.dropbox.com", "dl.dropboxusercontent.com").replace("?dl=0", "");
@@ -24,23 +26,24 @@ function HiloMusical() {
   });
 
   useEffect(() => {
+    document.title = "Hilo Musical";
     fetchHilosMusicales();
     fetchUsuarios();
   }, []);
 
   const fetchHilosMusicales = async () => {
-    const res = await axios.get("http://localhost:8000/hilo_musical/");
+    const res = await axios.get(`${API_URL}/hilo_musical/`);
     setHilosMusicales(res.data);
   };
 
   const fetchUsuarios = async () => {
-    const res = await axios.get("http://localhost:8000/usuario/");
+    const res = await axios.get(`${API_URL}/usuario/`);
     setUsuarios(res.data);
   };
 
   const handleAddSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:8000/hilo_musical/", {
+    await axios.post(`${API_URL}/hilo_musical/`, {
       nombre,
       url_musical: urlMusical,
       url_image: urlImage,
@@ -58,7 +61,7 @@ function HiloMusical() {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     if (editingHiloMusical) {
-      await axios.put(`http://localhost:8000/hilo_musical/${editingHiloMusical.id_hilo}`, {
+      await axios.put(`${API_URL}/hilo_musical/${editingHiloMusical.id_hilo}`, {
         nombre: editingFields.nombre,
         url_musical: editingFields.urlMusical,
         url_image: editingFields.urlImage,
@@ -90,7 +93,7 @@ function HiloMusical() {
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:8000/hilo_musical/${id}`);
+    await axios.delete(`${API_URL}/hilo_musical/${id}`);
     fetchHilosMusicales();
   };
 

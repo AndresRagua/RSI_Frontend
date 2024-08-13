@@ -3,8 +3,7 @@ import axios from "axios";
 import AdminNavBar from "../../components/AdminNavBar";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-// URL del backend (puede cambiar según el entorno)
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const API_URL = process.env.REACT_APP_API_URL;
 
 
 function Administrador() {
@@ -30,6 +29,7 @@ function Administrador() {
 
   useEffect(() => {
     fetchAdministradores();
+    document.title = "Administradores";
   }, []);
 
   const fetchAdministradores = async () => {

@@ -6,7 +6,6 @@ import Footer from '../../components/Footer';
 import '../../static/css/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importación de los estilos de Bootstrap
 
-// URL del backend (puede cambiar según el entorno)
 const API_URL = process.env.REACT_APP_API_URL;
 
 // Función para transformar la URL de Dropbox

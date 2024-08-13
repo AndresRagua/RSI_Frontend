@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AdminNavBar from "../../components/AdminNavBar";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 // Función para transformar la URL de Dropbox
 const transformDropboxUrl = (url) => {
   return url?.replace("www.dropbox.com", "dl.dropboxusercontent.com").replace("?dl=0", "");
@@ -30,13 +32,14 @@ function ServicioSocial() {
   });
 
   useEffect(() => {
+    document.title = "Servicios sociales";
     fetchServiciosSociales();
     fetchRadios();
   }, []);
 
   const fetchServiciosSociales = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/servicio_social/");
+      const res = await axios.get(`${API_URL}/servicio_social/`);
       setServiciosSociales(res.data);
     } catch (error) {
       console.error("Error fetching servicios sociales:", error);
@@ -45,7 +48,7 @@ function ServicioSocial() {
 
   const fetchRadios = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/radio/obtener");
+      const res = await axios.get(`${API_URL}/radio/obtener`);
       setRadios(res.data);
     } catch (error) {
       console.error("Error fetching radios:", error);
@@ -55,7 +58,7 @@ function ServicioSocial() {
   const handleAddSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/servicio_social/", {
+      await axios.post(`${API_URL}/servicio_social/`, {
         nombre,
         informacion,
         url_image: urlImage,
@@ -83,7 +86,7 @@ function ServicioSocial() {
     e.preventDefault();
     if (editingServicioSocial) {
       try {
-        await axios.put(`http://localhost:8000/servicio_social/${editingServicioSocial.id_servicio}`, {
+        await axios.put(`${API_URL}/servicio_social/${editingServicioSocial.id_servicio}`, {
           nombre: editingFields.nombre,
           informacion: editingFields.informacion,
           url_image: editingFields.urlImage,
@@ -127,7 +130,7 @@ function ServicioSocial() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/servicio_social/${id}`);
+      await axios.delete(`${API_URL}/servicio_social/${id}`);
       fetchServiciosSociales();
     } catch (error) {
       console.error("Error deleting servicio social:", error);

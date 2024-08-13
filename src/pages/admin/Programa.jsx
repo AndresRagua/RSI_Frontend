@@ -2,6 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AdminNavBar from "../../components/AdminNavBar";
 
+// Transforma la URL de Dropbox para poder usarla correctamente
+const transformDropboxUrl = (url) => {
+  return url.replace("www.dropbox.com", "dl.dropboxusercontent.com").replace("?dl=0", "");
+};
+
+const API_URL = process.env.REACT_APP_API_URL;
+
 // Componente principal de Programa
 function Programa() {
   // Definición de estados para manejar los valores de los formularios y los datos de programas y radios
@@ -24,26 +31,27 @@ function Programa() {
 
   // Efecto que se ejecuta al montar el componente para obtener los programas y radios
   useEffect(() => {
+    document.title = "Programas";
     fetchProgramas();
     fetchRadios();
   }, []);
 
   // Función para obtener la lista de programas desde el backend
   const fetchProgramas = async () => {
-    const res = await axios.get("http://localhost:8000/programa/");
+    const res = await axios.get(`${API_URL}/programa/`);
     setProgramas(res.data);
   };
 
   // Función para obtener la lista de radios desde el backend
   const fetchRadios = async () => {
-    const res = await axios.get("http://localhost:8000/radio/obtener");
+    const res = await axios.get(`${API_URL}/radio/obtener`);
     setRadios(res.data);
   };
 
   // Maneja el envío del formulario para agregar un nuevo programa
   const handleAddSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:8000/programa/", {
+    await axios.post(`${API_URL}/programa/`, {
       nombre,
       nombre_conductor: nombreConductor,
       certificado_locucion: certificadoLocucion,
@@ -65,7 +73,7 @@ function Programa() {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     if (editingPrograma) {
-      await axios.put(`http://localhost:8000/programa/${editingPrograma.id_programa}`, {
+      await axios.put(`${API_URL}/programa/${editingPrograma.id_programa}`, {
         nombre: editingFields.nombre,
         nombre_conductor: editingFields.nombreConductor,
         certificado_locucion: editingFields.certificadoLocucion,
@@ -104,13 +112,8 @@ function Programa() {
 
   // Maneja la eliminación de un programa
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:8000/programa/${id}`);
+    await axios.delete(`${API_URL}/programa/${id}`);
     fetchProgramas(); // Refresca la lista de programas
-  };
-
-  // Transforma la URL de Dropbox para poder usarla correctamente
-  const transformDropboxUrl = (url) => {
-    return url.replace("www.dropbox.com", "dl.dropboxusercontent.com").replace("?dl=0", "");
   };
 
   return (

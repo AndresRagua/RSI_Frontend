@@ -4,7 +4,6 @@ import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, Dropdown, D
 import logo_rs from '../static/img/Logos/Logo_RS/logo_rs.svg';
 import axios from 'axios';
 
-// URL del backend (puede cambiar según el entorno)
 const API_URL = process.env.REACT_APP_API_URL;
 
 const NavBarPublic = ({ selectedRadio, setSelectedRadio }) => {

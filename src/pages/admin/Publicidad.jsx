@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AdminNavBar from "../../components/AdminNavBar";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 // Función para transformar la URL de Dropbox
 const transformDropboxUrl = (url) => {
   return url.replace("www.dropbox.com", "dl.dropboxusercontent.com").replace("?dl=0", "");
@@ -30,23 +32,24 @@ function Publicidad() {
   });
 
   useEffect(() => {
+    document.title = "Publicidades";
     fetchPublicidades();
     fetchRadios();
   }, []);
 
   const fetchPublicidades = async () => {
-    const res = await axios.get("http://localhost:8000/publicidad/");
+    const res = await axios.get(`${API_URL}/publicidad/`);
     setPublicidades(res.data);
   };
 
   const fetchRadios = async () => {
-    const res = await axios.get("http://localhost:8000/radio/obtener");
+    const res = await axios.get(`${API_URL}/radio/obtener`);
     setRadios(res.data);
   };
 
   const handleAddSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:8000/publicidad/", {
+    await axios.post(`${API_URL}/publicidad/`, {
       nombre,
       informacion,
       url_image: urlImage,
@@ -70,7 +73,7 @@ function Publicidad() {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     if (editingPublicidad) {
-      await axios.put(`http://localhost:8000/publicidad/${editingPublicidad.id_publicidad}`, {
+      await axios.put(`${API_URL}/publicidad/${editingPublicidad.id_publicidad}`, {
         nombre: editingFields.nombre,
         informacion: editingFields.informacion,
         url_image: editingFields.urlImage,
@@ -111,7 +114,7 @@ function Publicidad() {
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:8000/publicidad/${id}`);
+    await axios.delete(`${API_URL}/publicidad/${id}`);
     fetchPublicidades();
   };
 

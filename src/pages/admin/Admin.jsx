@@ -1,8 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import AdminNavBar from '../../components/AdminNavBar'; // Asegúrate de que la ruta sea correcta
 
 const Admin = () => {
+
+  useEffect(() => {
+    document.title = "Panel de Administración";
+  }, []);
+
   return (
     <div className="flex flex-col h-screen bg-gray-200">
       {/* Navbar */}

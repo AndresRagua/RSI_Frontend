@@ -3,6 +3,8 @@ import axios from "axios";
 import AdminNavBar from "../../components/AdminNavBar";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function Usuario() {
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
@@ -28,17 +30,18 @@ function Usuario() {
   const [editingConfirmPasswordVisible, setEditingConfirmPasswordVisible] = useState(false);
 
   useEffect(() => {
+    document.title = "Usuarios Hilos";
     fetchUsuarios();
     fetchRadios();
   }, []);
 
   const fetchUsuarios = async () => {
-    const res = await axios.get("http://localhost:8000/usuario/");
+    const res = await axios.get(`${API_URL}/usuario/`);
     setUsuarios(res.data);
   };
 
   const fetchRadios = async () => {
-    const res = await axios.get("http://localhost:8000/radio/obtener");
+    const res = await axios.get(`${API_URL}/radio/obtener`);
     setRadios(res.data);
   };
 
@@ -48,7 +51,7 @@ function Usuario() {
       alert("Las contraseñas no coinciden");
       return;
     }
-    await axios.post("http://localhost:8000/usuario/", {
+    await axios.post(`${API_URL}/usuario/`, {
       nombre,
       correo,
       telefono,
@@ -73,7 +76,7 @@ function Usuario() {
       return;
     }
     if (editingUsuario) {
-      await axios.put(`http://localhost:8000/usuario/${editingUsuario.id_usuario}`, {
+      await axios.put(`${API_URL}/usuario/${editingUsuario.id_usuario}`, {
         nombre: editingFields.nombre,
         correo: editingFields.correo,
         telefono: editingFields.telefono,
@@ -110,7 +113,7 @@ function Usuario() {
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:8000/usuario/${id}`);
+    await axios.delete(`${API_URL}/usuario/${id}`);
     fetchUsuarios();
   };
 

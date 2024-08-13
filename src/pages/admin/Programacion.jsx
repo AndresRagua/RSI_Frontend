@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AdminNavBar from "../../components/AdminNavBar";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 // Función para transformar la URL de Dropbox
 const transformDropboxUrl = (url) => {
   return url.replace("www.dropbox.com", "dl.dropboxusercontent.com").replace("?dl=0", "");
@@ -25,23 +27,24 @@ function Programacion() {
   const [sortOrder, setSortOrder] = useState("asc");
 
   useEffect(() => {
+    document.title = "Programaciones";
     fetchProgramaciones();
     fetchProgramas();
   }, []);
 
   const fetchProgramaciones = async () => {
-    const res = await axios.get("http://localhost:8000/programacion/");
+    const res = await axios.get(`${API_URL}/programacion/`);
     setProgramaciones(res.data);
   };
 
   const fetchProgramas = async () => {
-    const res = await axios.get("http://localhost:8000/programa/");
+    const res = await axios.get(`${API_URL}/programa/`);
     setProgramas(res.data);
   };
 
   const handleAddSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:8000/programacion/", {
+    await axios.post(`${API_URL}/programacion/`, {
       nombre,
       url_audio: urlAudio,
       fecha_transmision: fechaTransmision,
@@ -59,7 +62,7 @@ function Programacion() {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     if (editingProgramacion) {
-      await axios.put(`http://localhost:8000/programacion/${editingProgramacion.id_programacion}`, {
+      await axios.put(`${API_URL}/programacion/${editingProgramacion.id_programacion}`, {
         nombre: editingFields.nombre,
         url_audio: editingFields.urlAudio,
         fecha_transmision: editingFields.fechaTransmision,
@@ -91,7 +94,7 @@ function Programacion() {
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:8000/programacion/${id}`);
+    await axios.delete(`${API_URL}/programacion/${id}`);
     fetchProgramaciones();
   };
 

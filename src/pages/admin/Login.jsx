@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
-// URL del backend (puede cambiar según el entorno)
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
-
+const API_URL = process.env.REACT_APP_API_URL;
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -22,6 +20,10 @@ const Login = () => {
       setError('Correo o contraseña incorrectos');
     }
   };
+
+  useEffect(() => {
+    document.title = "Ingreso Administrador";
+  }, []);
 
   return (
     <div className="flex flex-col bg-gray-200 h-screen">

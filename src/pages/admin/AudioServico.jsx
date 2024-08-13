@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AdminNavBar from "../../components/AdminNavBar";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 // Función para transformar la URL de Dropbox
 const transformDropboxUrl = (url) => {
   if (!url) return ""; // Devuelve una cadena vacía si la URL no está definida
@@ -25,13 +27,14 @@ function AudioServicio() {
   });
 
   useEffect(() => {
+    document.title = "Audios SS";
     fetchAudiosServicio();
     fetchServiciosSociales();
   }, []);
 
   const fetchAudiosServicio = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/audio_servicio/");
+      const res = await axios.get(`${API_URL}/audio_servicio/`);
       setAudiosServicio(res.data);
     } catch (error) {
       console.error("Error fetching audios servicio:", error);
@@ -40,7 +43,7 @@ function AudioServicio() {
 
   const fetchServiciosSociales = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/servicio_social/");
+      const res = await axios.get(`${API_URL}/servicio_social/`);
       const serviciosAudio = res.data.filter(servicio => servicio.tipo === "audio");
       setServiciosSociales(serviciosAudio);
     } catch (error) {
@@ -51,7 +54,7 @@ function AudioServicio() {
   const handleAddSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/audio_servicio/", {
+      await axios.post(`${API_URL}/audio_servicio/`, {
         nombre,
         fecha,
         url_audio: urlAudio,
@@ -73,7 +76,7 @@ function AudioServicio() {
     e.preventDefault();
     if (editingAudioServicio) {
       try {
-        await axios.put(`http://localhost:8000/audio_servicio/${editingAudioServicio.id_audio}`, {
+        await axios.put(`${API_URL}/audio_servicio/${editingAudioServicio.id_audio}`, {
           nombre: editingFields.nombre,
           fecha: editingFields.fecha,
           url_audio: editingFields.url_audio,
@@ -109,7 +112,7 @@ function AudioServicio() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/audio_servicio/${id}`);
+      await axios.delete(`${API_URL}/audio_servicio/${id}`);
       fetchAudiosServicio();
     } catch (error) {
       console.error("Error deleting audio servicio:", error);

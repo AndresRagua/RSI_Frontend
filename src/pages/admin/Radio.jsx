@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import AdminNavBar from "../../components/AdminNavBar";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 // Función para transformar la URL de Dropbox
 const transformDropboxUrl = (url) => {
   return url?.replace("www.dropbox.com", "dl.dropboxusercontent.com").replace("?dl=0", "");
@@ -28,12 +30,13 @@ function Radio() {
   });
 
   useEffect(() => {
+    document.title = "Radios";
     fetchRadios();
   }, []);
 
   const fetchRadios = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/radio/obtener");
+      const res = await axios.get(`${API_URL}/radio/obtener`);
       setRadios(res.data);
     } catch (error) {
       console.error("Error fetching radios:", error);
@@ -43,7 +46,7 @@ function Radio() {
   const handleAddSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/radio/agregar", {
+      await axios.post(`${API_URL}/radio/agregar`, {
         nombre,
         url_logo: urlLogo,
         url_audio: urlAudio,
@@ -74,7 +77,7 @@ function Radio() {
     e.preventDefault();
     if (editingRadio) {
       try {
-        await axios.put(`http://localhost:8000/radio/${editingRadio.id}`, {
+        await axios.put(`${API_URL}/radio/${editingRadio.id}`, {
           nombre: editingFields.nombre,
           url_logo: editingFields.urlLogo,
           url_audio: editingFields.urlAudio,
@@ -120,7 +123,7 @@ function Radio() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/radio/${id}`);
+      await axios.delete(`${API_URL}/radio/${id}`);
       fetchRadios();
       setError("");  // Clear any previous errors
     } catch (err) {
