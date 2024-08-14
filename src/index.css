@@ -150,23 +150,23 @@
 }
 
 .programas-item img {
-  width: 350px;
+  width: 300px;
   height: auto; /* Mantiene la proporción de la imagen */
   object-fit: cover;
   object-position: center;
-  border-radius: 20%;
+  border-radius: 10%;
 }
 
 .programas-item h4 {
-  font-size: 35px;
+  font-size: 28px;
   font-weight: bold;
   color: black;
   text-align: center;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .programas-item p {
-  font-size: 16px;
+  font-size: 15px;
   color: black;
   text-align: center;
   margin-top: 10px;
@@ -210,4 +210,19 @@
 .portfolio-hover-content {
   color: #fff;
   font-size: 1.5rem;
+}
+
+.team-publicidad {
+  min-height: 250px !important; /* Ajusta según sea necesario */
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
+.team-publicidad p.text-black {
+  flex-grow: 1 !important;
+}
+
+.social-buttons {
+  margin-top: auto !important; /* Asegura que los botones estén alineados al fondo del contenedor */
 }

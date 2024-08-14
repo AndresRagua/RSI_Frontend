@@ -247,14 +247,17 @@ function Home() {
                   key={publicidad.id_publicidad}
                   className={`justify-content-center ${publicidades.length === 1 ? 'col-lg-12 col-md-12 col-sm-12' : publicidades.length === 2 ? 'col-lg-6 col-md-6 col-sm-6' : publicidades.length >= 3 ? 'col-lg-3 col-md-4 col-sm-6' : 'col-4'} d-flex`}
                 >
-                  <div className="team-member mb-5">
-                    <img className="mx-auto" src={transformDropboxUrl(publicidad.url_image)} alt={`Imagen de {publicidad.nombre}`} />
-                    <h4>{publicidad.nombre}</h4>
-                    <p className="text-muted mt-3 mb-3">{publicidad.informacion}</p>
-                    <a className="btn btn-dark btn-social mx-2" href={publicidad.url_twitter} aria-label="Parveen Anand Twitter Profile"><i className="fab fa-twitter"></i></a>
-                    <a className="btn btn-dark btn-social mx-2" href={publicidad.url_facebook} aria-label="Parveen Anand Facebook Profile"><i className="fab fa-facebook-f"></i></a>
-                    <a className="btn btn-dark btn-social mx-2" href={publicidad.url_instagram} aria-label="Parveen Anand Instagram Profile"><i className="fab fa-instagram"></i></a>
+                  <div className="team-member team-publicidad mb-3">
+                    <img className="mx-auto" src={transformDropboxUrl(publicidad.url_image)} alt={`Imagen de ${publicidad.nombre}`} />
+                    <h4 className='text-black'>{publicidad.nombre}</h4>
+                    <p className="text-black mt-2 mb-3">{publicidad.informacion}</p>
+                    <div className="social-buttons">
+                      <a className="btn btn-dark btn-social mx-2" href={publicidad.url_twitter} aria-label="Parveen Anand Twitter Profile"><i className="fab fa-twitter"></i></a>
+                      <a className="btn btn-dark btn-social mx-2" href={publicidad.url_facebook} aria-label="Parveen Anand Facebook Profile"><i className="fab fa-facebook-f"></i></a>
+                      <a className="btn btn-dark btn-social mx-2" href={publicidad.url_instagram} aria-label="Parveen Anand Instagram Profile"><i className="fab fa-instagram"></i></a>
+                    </div>
                   </div>
+
                 </div>
               ))}
             </div>
@@ -285,7 +288,7 @@ function Home() {
                         <p className='mt-2'><b>Certificado de Locución:</b> {programa.certificado_locucion}</p>
                       </div>
 
-                      <div className='dropdown w-100 mb-5'>
+                      <div className='dropdown w-100 mb-3'>
                         <button className='btn btn-warning btn-lg w-100 text-sm md:text-base' type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                           Programación
                         </button>
@@ -366,51 +369,51 @@ function Home() {
           </div>
         </section>
       )}
-      
+
       {/* SECCION PARA CONTACTO */}
       <section class="page-section bg-black" id="contact">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase" id='contacto'>Contáctanos</h2>
-                    <h3 class="section-subheading text-white">Contáctanos.</h3>
+        <div class="container">
+          <div class="text-center">
+            <h2 class="section-heading text-uppercase" id='contacto'>Contáctanos</h2>
+            <h3 class="section-subheading text-white">Contáctanos.</h3>
+          </div>
+          <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+            <div class="row align-items-stretch mb-5">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
+                  <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                 </div>
-                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-                    <div class="row align-items-stretch mb-5">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
-                                <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
-                            </div>
-                            <div class="form-group mb-md-0">
-                                <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group form-group-textarea mb-md-0">
-                                <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
-                                <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-none" id="submitSuccessMessage">
-                        <div class="text-center text-white mb-3">
-                            <div class="fw-bolder">Form submission successful!</div>
-                            To activate this form, sign up at
-                            <br />
-                            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                        </div>
-                    </div>
-                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Send Message</button></div>
-                </form>
+                <div class="form-group">
+                  <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
+                  <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
+                  <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                </div>
+                <div class="form-group mb-md-0">
+                  <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
+                  <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group form-group-textarea mb-md-0">
+                  <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
+                  <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
+                </div>
+              </div>
             </div>
-        </section>
+            <div class="d-none" id="submitSuccessMessage">
+              <div class="text-center text-white mb-3">
+                <div class="fw-bolder">Form submission successful!</div>
+                To activate this form, sign up at
+                <br />
+                <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+              </div>
+            </div>
+            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+            <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Send Message</button></div>
+          </form>
+        </div>
+      </section>
 
 
 
