@@ -247,7 +247,7 @@ function Home() {
                   key={publicidad.id_publicidad}
                   className={`justify-content-center ${publicidades.length === 1 ? 'col-lg-12 col-md-12 col-sm-12' : publicidades.length === 2 ? 'col-lg-6 col-md-6 col-sm-6' : publicidades.length >= 3 ? 'col-lg-3 col-md-4 col-sm-6' : 'col-4'} d-flex`}
                 >
-                  <div className="team-member team-publicidad mb-3">
+                  <div className="team-member team-publicidad pb-2">
                     <img className="mx-auto" src={transformDropboxUrl(publicidad.url_image)} alt={`Imagen de ${publicidad.nombre}`} />
                     <h4 className='text-black'>{publicidad.nombre}</h4>
                     <p className="text-black mt-2 mb-3">{publicidad.informacion}</p>
