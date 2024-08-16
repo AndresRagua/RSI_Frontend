@@ -4,92 +4,201 @@
 @tailwind utilities;
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 
+
+/* Estilos generales */
 .navbar-custom {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-
-.radio-dropdown {
-  order: 1;
-  padding-right: 4px;
+  justify-content: space-between !important;
+  padding: 0 0.5rem; /* Reducir padding general */
 }
 
 .navbar-brand {
-  padding-left: 4px;
-  padding-right: 3px;
+  order: 1;
+  flex-shrink: 0 !important;
 }
 
-@media (max-width: 767.98px) {
+.radio-dropdown {
+  order: 2;
+  flex-shrink: 0 !important;
+  margin: 0 0.25rem; /* Reducir márgenes para que todo quepa en una fila */
+}
+
+.navbar-toggler {
+  order: 3;
+  margin-left: 0.25rem; /* Reducir margen izquierdo del toggler */
+}
+
+/* Pantallas pequeñas: 360x640 (móvil pequeño) */
+@media (max-width: 392px) {
   .navbar-custom {
     flex-direction: row;
-    justify-content: space-between;
   }
 
   .navbar-brand {
     order: 1;
-    padding: 0 !important;
-    margin: 0 !important;
   }
 
   .radio-dropdown {
     order: 2;
-    flex: 1;
-    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    margin: 0 0.25rem; /* Reducir márgenes para que todo quepa en una fila */
   }
 
   .navbar-toggler {
     order: 3;
   }
 
-  .collapse.navbar-collapse {
-    flex-basis: 100%;
-    justify-content: center;
+  .dropdown-toggle {
+    padding-left: 0.25rem !important; /* Reducir padding para ajustar el tamaño */
+    padding-right: 0.25rem !important;
+    font-size: 0.75rem !important; /* Reducir tamaño de fuente */
   }
 }
 
-@media (min-width: 768px) {
+/* Pantallas medianas: 375x667 (móvil medio) */
+@media (min-width: 393px) and (max-width: 767px) {
   .navbar-custom {
     flex-direction: row;
-    justify-content: space-between;
+  }
+
+  .navbar-brand {
+    order: 1 !important;
+  }
+
+  .radio-dropdown {
+    order: 2 !important;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    margin: 0 0.5rem; /* Márgenes ajustados */
+  }
+
+  .navbar-toggler {
+    order: 3 !important;
+  }
+
+  .dropdown-toggle {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    font-size: 0.875rem; /* Ajustar el tamaño de fuente */
+  }
+}
+
+/* Pantallas medianas-grandes: 768px a 1280px */
+@media (min-width: 768px) and (max-width: 1280px) {
+  .navbar-custom {
+    flex-direction: row;
+    justify-content: space-between !important;
+  }
+
+  .navbar-brand {
+    order: 1 !important;
+    margin-right: auto !important;
+    flex-shrink: 0 !important;
+  }
+
+  .radio-dropdown {
+    order: 2 !important;
+    flex-grow: 1 !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin: 0 auto !important; /* Centramos el dropdown */
+  }
+
+  .navbar-toggler {
+    order: 3 !important;
+    margin-left: auto !important;
+    flex-shrink: 0 !important;
+  }
+
+  .collapse.navbar-collapse {
+    flex-basis: auto !important;
+    justify-content: center !important;
+    order: 4 !important;
+  }
+
+  .navbar-nav {
+    order: 5 !important;
+    margin-left: auto !important;
+  }
+}
+
+
+
+/* Ordenadores portátiles: 1366x768 */
+@media (min-width: 1281px) and (max-width: 1440px) {
+  .navbar-custom {
+    flex-direction: row;
+    padding: 0 2rem;
+  }
+
+  .navbar-brand {
+    order: 1;
+  }
+
+  .radio-dropdown {
+    order: 2;
+    margin-left: auto !important;
   }
 
   .navbar-collapse {
-    display: flex;
-    justify-content: flex-start;
+    order: 3;
+    justify-content: flex-end;
+  }
+}
+
+/* Escritorios medianos: 1440x900 */
+@media (min-width: 1441px) and (max-width: 1920px) {
+  .navbar-custom {
+    flex-direction: row;
+    padding: 0 3rem;
   }
 
-  .navbar-collapse .me-auto {
+  .navbar-brand {
+    order: 1;
+  }
+
+  .radio-dropdown {
+    order: 2;
+    margin-left: auto;
     margin-right: auto;
   }
 
-  .navbar-collapse .ms-auto {
+  .navbar-collapse {
+    order: 3;
+    justify-content: flex-end;
+  }
+}
+
+/* Escritorios grandes: 1920x1080 */
+@media (min-width: 1921px) {
+  .navbar-custom {
+    flex-direction: row;
+    padding: 0 4rem;
+  }
+
+  .navbar-brand {
+    order: 1;
+  }
+
+  .radio-dropdown {
+    order: 2;
     margin-left: auto;
+    margin-right: auto;
   }
 
-  .nav-link {
-    padding-bottom: 10px !important;
-    border-color: aqua;
+  .navbar-collapse {
+    order: 3;
+    justify-content: flex-end;
   }
 }
 
-.btn-custom {
-  color: white !important;
-  border: 2px solid white !important;
-  background-color: transparent !important;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  text-align: center;
-  display: inline-block;
-  margin: 0 0.5rem;
-  text-decoration: none;
-}
 
-.btn-custom:hover {
-  background-color: rgba(255, 255, 255, 0.2) !important;
-  color: white !important;
-  text-decoration: none;
-}
+
+
 
 .font-semibold-important {
   font-weight: 700 !important;

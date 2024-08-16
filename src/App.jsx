@@ -37,10 +37,10 @@ const App = () => {
         <Route path="/admin/audio_servicio" element={<PrivateRoute><AudioServicio /></PrivateRoute>} />
         <Route path="/admin/usuario" element={<PrivateRoute><Usuario /></PrivateRoute>} />
         <Route path="/admin/hilo" element={<PrivateRoute><HiloMusical /></PrivateRoute>} />
-        {/*
         <Route path="/admin/administrador" element={<PrivateRoute><Administrador /></PrivateRoute>} />
-        */}
+        {/*
         <Route path="/administrador" element={<Administrador />} />
+        */}
       </Routes>
     </Router>
   );
