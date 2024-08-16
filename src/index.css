@@ -30,7 +30,7 @@
 }
 
 /* Pantallas pequeñas: 360x640 (móvil pequeño) */
-@media (max-width: 392px) {
+@media (min-width: 200px) and (max-width: 392px) {
   .navbar-custom {
     flex-direction: row;
   }
@@ -43,8 +43,7 @@
     order: 2;
     flex-grow: 1;
     display: flex;
-    justify-content: center;
-    margin: 0 0.25rem; /* Reducir márgenes para que todo quepa en una fila */
+    margin: 0 0.10rem; /* Reducir márgenes para que todo quepa en una fila */
   }
 
   .navbar-toggler {
@@ -52,28 +51,61 @@
   }
 
   .dropdown-toggle {
-    padding-left: 0.25rem !important; /* Reducir padding para ajustar el tamaño */
-    padding-right: 0.25rem !important;
-    font-size: 0.75rem !important; /* Reducir tamaño de fuente */
+    padding-left: 0.15rem !important; /* Reducir padding para ajustar el tamaño */
+    padding-right: 0.15rem !important;
+    font-size: 0.60rem !important; /* Reducir tamaño de fuente */
   }
 }
 
-/* Pantallas medianas: 375x667 (móvil medio) */
-@media (min-width: 393px) and (max-width: 767px) {
+/* Ajuste para pantallas pequeñas: Menores de 768px */
+@media (max-width: 767.98px) {
   .navbar-custom {
-    flex-direction: row;
+    flex-direction: row !important;
   }
 
   .navbar-brand {
     order: 1 !important;
+    flex-shrink: 0 !important;
+    margin-right: auto !important;
   }
 
   .radio-dropdown {
     order: 2 !important;
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    margin: 0 0.5rem; /* Márgenes ajustados */
+    flex-grow: 1 !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin: 0 0.5rem !important;
+  }
+
+  .navbar-toggler {
+    order: 3 !important;
+    margin-left: auto !important;
+  }
+
+  .dropdown-toggle {
+    padding-left: 0.3rem !important;
+    padding-right: 0.3rem !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+/* Ajuste para pantallas medianas-grandes: 768px a 1280px */
+@media (min-width: 768px) and (max-width: 1280px) {
+  .navbar-custom {
+    flex-direction: row !important;
+  }
+
+  .navbar-brand {
+    order: 1 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .radio-dropdown {
+    order: 2 !important;
+    flex-grow: 1 !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin: 0 0.5rem !important;
   }
 
   .navbar-toggler {
@@ -83,49 +115,14 @@
   .dropdown-toggle {
     padding-left: 0.5rem !important;
     padding-right: 0.5rem !important;
-    font-size: 0.875rem; /* Ajustar el tamaño de fuente */
+    font-size: 0.9rem !important;
+  }
+
+  .nav-item {
+    margin-left: 0.5rem !important;
+    margin-right: 0.5rem !important;
   }
 }
-
-/* Pantallas medianas-grandes: 768px a 1280px */
-@media (min-width: 768px) and (max-width: 1280px) {
-  .navbar-custom {
-    flex-direction: row;
-    justify-content: space-between !important;
-  }
-
-  .navbar-brand {
-    order: 1 !important;
-    margin-right: auto !important;
-    flex-shrink: 0 !important;
-  }
-
-  .radio-dropdown {
-    order: 2 !important;
-    flex-grow: 1 !important;
-    display: flex !important;
-    justify-content: center !important;
-    margin: 0 auto !important; /* Centramos el dropdown */
-  }
-
-  .navbar-toggler {
-    order: 3 !important;
-    margin-left: auto !important;
-    flex-shrink: 0 !important;
-  }
-
-  .collapse.navbar-collapse {
-    flex-basis: auto !important;
-    justify-content: center !important;
-    order: 4 !important;
-  }
-
-  .navbar-nav {
-    order: 5 !important;
-    margin-left: auto !important;
-  }
-}
-
 
 
 /* Ordenadores portátiles: 1366x768 */
