@@ -4,215 +4,17 @@
 @tailwind utilities;
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 
-
-/* NAV BAR */
-.navbar-custom {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  padding: 0 0.5rem !important; /* Reducir padding general */
+.font-navbar {
+  font-family: 'Poppins', sans-serif !important;
 }
 
-.navbar-brand {
-  order: 1 !important;
-  flex-shrink: 0 !important;
+.nav-item .nav-link {
+  text-decoration: none !important;
 }
 
-.radio-dropdown {
-  order: 2 !important;
-  flex-shrink: 0 !important;
-  margin: 0 0.25rem !important; /* Reducir márgenes para que todo quepa en una fila */
+.nav-item .nav-link:hover {
+  text-decoration: none !important;
 }
-
-.navbar-toggler {
-  order: 3 !important;
-  margin-left: 0.25rem !important; /* Reducir margen izquierdo del toggler */
-}
-
-/* Pantallas pequeñas: 360x640 (móvil pequeño) */
-@media (min-width: 200px) and (max-width: 392px) {
-  .navbar-custom {
-    flex-direction: row !important;
-  }
-
-  .navbar-brand {
-    order: 1 !important;
-  }
-
-  .radio-dropdown {
-    order: 2 !important;
-    flex-grow: 1 !important;
-    display: flex !important;
-    justify-content: center !important;
-    margin: 0 0.10rem !important; /* Reducir márgenes para que todo quepa en una fila */
-  }
-
-  .navbar-toggler {
-    order: 3 !important;
-  }
-
-  .dropdown-toggle {
-    padding-left: 0.15rem !important; /* Reducir padding para ajustar el tamaño */
-    padding-right: 0.15rem !important;
-    font-size: 0.60rem !important; /* Reducir tamaño de fuente */
-  }
-}
-
-/* Ajuste para pantallas pequeñas: Menores de 768px */
-@media (max-width: 767.98px) {
-  .navbar-custom {
-    flex-direction: row !important;
-  }
-
-  .navbar-brand {
-    order: 1 !important;
-    flex-shrink: 0 !important;
-    margin-right: auto !important;
-  }
-
-  .radio-dropdown {
-    order: 2 !important;
-    flex-grow: 1 !important;
-    display: flex !important;
-    justify-content: center !important;
-    margin: 0 0.5rem !important;
-  }
-
-  .navbar-toggler {
-    order: 3 !important;
-    margin-left: auto !important;
-  }
-
-  .dropdown-toggle {
-    padding-left: 0.3rem !important;
-    padding-right: 0.3rem !important;
-    font-size: 0.85rem !important;
-  }
-}
-
-/* Ajuste para pantallas medianas-grandes: 768px a 1024px */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .navbar-custom {
-    flex-direction: row !important;
-  }
-
-  .navbar-brand {
-    order: 1 !important;
-    flex-shrink: 0 !important;
-  }
-
-  .radio-dropdown {
-    order: 2 !important;
-    flex-grow: 1 !important;
-    display: flex !important;
-    justify-content: center !important;
-    margin: 0 0.5rem !important;
-  }
-
-  .navbar-toggler {
-    order: 3 !important;
-  }
-
-  .dropdown-toggle {
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-    font-size: 0.9rem !important;
-  }
-
-  .nav-item {
-    margin-left: 0.5rem !important;
-    margin-right: 0.5rem !important;
-  }
-
-  /* Secciones en Dropdown */
-  .navbar-collapse {
-    order: 3 !important;
-    display: none !important; /* Ocultar las secciones */
-  }
-
-  .navbar-toggler {
-    display: block !important;
-  }
-}
-
-/* Ordenadores portátiles: 1025px en adelante */
-@media (min-width: 1025px) {
-  .navbar-custom {
-    flex-direction: row !important;
-    padding: 0 2rem !important;
-  }
-
-  .navbar-brand {
-    order: 1 !important;
-  }
-
-  .radio-dropdown {
-    order: 2 !important;
-    margin-left: auto !important;
-  }
-
-  .navbar-collapse {
-    order: 3 !important;
-    display: flex !important; /* Mostrar las secciones */
-    justify-content: flex-end !important;
-  }
-
-  .navbar-toggler {
-    display: none !important;
-  }
-}
-
-/* Escritorios medianos: 1440x900 */
-@media (min-width: 1441px) and (max-width: 1920px) {
-  .navbar-custom {
-    flex-direction: row !important;
-    padding: 0 3rem !important;
-  }
-
-  .navbar-brand {
-    order: 1 !important;
-  }
-
-  .radio-dropdown {
-    order: 2 !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  .navbar-collapse {
-    order: 3 !important;
-    justify-content: flex-end !important;
-  }
-}
-
-/* Escritorios grandes: 1920x1080 */
-@media (min-width: 1921px) {
-  .navbar-custom {
-    flex-direction: row !important;
-    padding: 0 4rem !important;
-  }
-
-  .navbar-brand {
-    order: 1 !important;
-  }
-
-  .radio-dropdown {
-    order: 2 !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  .navbar-collapse {
-    order: 3 !important;
-    justify-content: flex-end !important;
-  }
-}
-
-/* FIN NAV BAR */
-
-
-
-
 
 
 .font-semibold-important {
@@ -220,7 +22,7 @@
 }
 
 .carousel-item-custom {
-  height: 520px; /* Altura fija para el carrusel */
+  height: 600px; /* Altura fija para el carrusel */
 }
 
 .carousel-item-custom img {

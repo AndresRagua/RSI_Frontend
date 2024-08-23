@@ -1,6 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './index.css'; // Asegúrate de que el archivo CSS esté correctamente importado
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'font-awesome/css/font-awesome.min.css';
+import './static/css/styles.css'
 import Home from './pages/index/Home';
 import Login from './pages/admin/Login';
 import Admin from './pages/admin/Admin';
