@@ -23,16 +23,18 @@ const NavBarPublic = ({ selectedRadio, setSelectedRadio, radios }) => {
 
   return (
     <nav className="bg-gray-800 fixed w-full z-10 top-0 shadow">
-      <div className="container mx-auto flex flex-wrap items-center justify-between p-2">
+      <div className="container mx-auto flex flex-wrap items-center justify-between p-2 ">
+        {/* Logo */}
         <div className="flex items-center">
           <Link to="/">
-            <img src={logo_rs} alt="Logo" className="h-10" />
+            <img src={logo_rs} alt="Logo" className="h-8 md:h-10" />
           </Link>
         </div>
+        {/* Dropdown Menu for Radios */}
         <div className="relative">
           <button
             onClick={toggleDropdown}
-            className="bg-secondary text-white font-semibold py-2 px-4 rounded inline-flex items-center"
+            className="bg-secondary text-white text-sm font-semibold py-2 px-4 rounded flex items-center"
           >
             <span>{radios.find(radio => radio.id === selectedRadio)?.nombre || 'Seleccionar Radio'}</span>
             <svg
@@ -44,12 +46,12 @@ const NavBarPublic = ({ selectedRadio, setSelectedRadio, radios }) => {
             </svg>
           </button>
           {dropdownOpen && (
-            <ul className="absolute text-gray-700 pt-1">
+            <ul className="absolute bg-white text-gray-700 py-1 shadow-lg mt-1 rounded w-48">
               {radios.length > 0 ? (
                 radios.map(radio => (
                   <li key={radio.id}>
                     <span
-                      className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap cursor-pointer"
+                      className="block py-2 px-4 hover:bg-gray-100 cursor-pointer text-sm"
                       onClick={() => {
                         setSelectedRadio(radio.id);
                         setDropdownOpen(false);
@@ -61,7 +63,7 @@ const NavBarPublic = ({ selectedRadio, setSelectedRadio, radios }) => {
                 ))
               ) : (
                 <li>
-                  <span className="bg-gray-200 py-2 px-4 block whitespace-no-wrap cursor-not-allowed">
+                  <span className="block py-2 px-4 text-gray-400 cursor-not-allowed text-sm">
                     No hay radios disponibles
                   </span>
                 </li>
@@ -69,31 +71,33 @@ const NavBarPublic = ({ selectedRadio, setSelectedRadio, radios }) => {
             </ul>
           )}
         </div>
+        {/* Mobile Menu Button */}
         <div className="block lg:hidden">
           <button
             onClick={toggleMenu}
             className="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white"
           >
-            <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <svg className="fill-current h-4 w-4" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <title>Menu</title>
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
             </svg>
           </button>
         </div>
-        <div className={`${isOpen ? 'block' : 'hidden'} w-full lg:flex lg:items-center lg:w-auto`}>
-          <ul className="text-sm lg:flex-grow flex flex-col lg:flex-row lg:justify-end">
-            <li className="nav-item">
+        {/* Menu Items */}
+        <div className={`w-full lg:flex lg:items-center lg:w-auto ${isOpen ? 'block' : 'hidden'}`}>
+          <ul className="flex flex-col lg:flex-row lg:justify-end text-white">
+            <li className="mt-4 lg:mt-0 lg:ml-4">
               <Link
                 to="/"
-                className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-400 mr-4"
+                className="block py-2 lg:py-0 text-sm hover:text-gray-400"
                 onClick={() => setIsOpen(false)}
               >
                 INICIO
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="mt-4 lg:mt-0 lg:ml-4">
               <span
-                className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-400 mr-4 cursor-pointer"
+                className="block py-2 lg:py-0 text-sm hover:text-gray-400 cursor-pointer"
                 onClick={() => {
                   handleScrollToSection('servicios');
                   setIsOpen(false);
@@ -102,9 +106,9 @@ const NavBarPublic = ({ selectedRadio, setSelectedRadio, radios }) => {
                 SERVICIO
               </span>
             </li>
-            <li className="nav-item">
+            <li className="mt-4 lg:mt-0 lg:ml-4">
               <span
-                className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-400 mr-4 cursor-pointer"
+                className="block py-2 lg:py-0 text-sm hover:text-gray-400 cursor-pointer"
                 onClick={() => {
                   handleScrollToSection('publicidades');
                   setIsOpen(false);
@@ -113,9 +117,9 @@ const NavBarPublic = ({ selectedRadio, setSelectedRadio, radios }) => {
                 PUBLICIDAD
               </span>
             </li>
-            <li className="nav-item">
+            <li className="mt-4 lg:mt-0 lg:ml-4">
               <span
-                className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-400 mr-4 cursor-pointer"
+                className="block py-2 lg:py-0 text-sm hover:text-gray-400 cursor-pointer"
                 onClick={() => {
                   handleScrollToSection('programas');
                   setIsOpen(false);
@@ -124,9 +128,9 @@ const NavBarPublic = ({ selectedRadio, setSelectedRadio, radios }) => {
                 PROGRAMAS
               </span>
             </li>
-            <li className="nav-item">
+            <li className="mt-4 lg:mt-0 lg:ml-4">
               <span
-                className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-400 mr-4 cursor-pointer"
+                className="block py-2 lg:py-0 text-sm hover:text-gray-400 cursor-pointer"
                 onClick={() => {
                   handleScrollToSection('artistas');
                   setIsOpen(false);
@@ -135,9 +139,9 @@ const NavBarPublic = ({ selectedRadio, setSelectedRadio, radios }) => {
                 ARTISTAS
               </span>
             </li>
-            <li className="nav-item">
+            <li className="mt-4 lg:mt-0 lg:ml-4">
               <span
-                className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-400 cursor-pointer"
+                className="block py-2 lg:py-0 text-sm hover:text-gray-400 cursor-pointer"
                 onClick={() => {
                   handleScrollToSection('contacto');
                   setIsOpen(false);

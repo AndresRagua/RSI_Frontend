@@ -4,6 +4,7 @@
 @tailwind utilities;
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 
+/* NAVBAR */
 .font-navbar {
   font-family: 'Poppins', sans-serif !important;
 }
@@ -15,6 +16,8 @@
 .nav-item .nav-link:hover {
   text-decoration: none !important;
 }
+
+/* FIN NAVBAR */
 
 
 .font-semibold-important {
@@ -97,45 +100,6 @@
   text-align: center;
   margin-top: 10px;
   margin-bottom: 0px;
-}
-
-.portfolio-item {
-  position: relative;
-  overflow: hidden;
-  max-width: 350px; /* Tamaño máximo del contenedor */
-  margin: 0 auto; /* Centra el contenedor */
-  border-radius: 10%;
-}
-
-.portfolio-item img {
-  width: 100%;
-  height: auto; /* Mantiene la proporción de la imagen */
-  object-fit: cover;
-  object-position: center;
-  max-width: 350px; /* Tamaño máximo de la imagen */
-}
-
-.portfolio-hover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  background: rgba(0, 0, 0, 0.5);
-  transition: opacity 0.3s ease-in-out;
-}
-
-.portfolio-hover:hover {
-  opacity: 1;
-}
-
-.portfolio-hover-content {
-  color: #fff;
-  font-size: 1.5rem;
 }
 
 .team-publicidad {

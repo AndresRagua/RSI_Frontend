@@ -12,12 +12,13 @@ const transformDropboxUrl = (url) => {
   return url?.replace("www.dropbox.com", "dl.dropboxusercontent.com").replace("?dl=0", "");
 };
 
+// Tu función para agrupar las programaciones
 const groupProgramacionesByMonthAndYear = (programaciones) => {
   const grouped = {};
   programaciones.forEach(programacion => {
     const date = new Date(programacion.fecha_transmision);
     const year = date.getFullYear();
-    const month = date.toLocaleString('default', { month: 'long' });
+    const month = date.toLocaleString('es-ES', { month: 'long' });
 
     if (!grouped[year]) {
       grouped[year] = {};
@@ -41,6 +42,9 @@ function Home() {
   const [artistas, setArtistas] = useState([]);
   const [publicidades, setPublicidades] = useState([]);
   const [programas, setProgramas] = useState([]);
+  const [expandedService, setExpandedService] = useState(null);
+  const [expandedArtist, setExpandedArtist] = useState(null);
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   useEffect(() => {
     fetchRadios();
@@ -99,7 +103,7 @@ function Home() {
       console.error("Error fetching programas:", error);
     }
   };
-  
+
 
 
   const fetchArtistas = async (radioId) => {
@@ -121,6 +125,24 @@ function Home() {
   const getRadioName = (id) => {
     const radio = radios.find(radio => radio.id === id);
     return radio ? radio.nombre : 'Radio';
+  };
+
+  // Función para manejar el clic en "Ver más"
+  const handleVerMas = (id) => {
+    if (expandedService === id) {
+      setExpandedService(null);  // Colapsar el texto si se hace clic de nuevo
+    } else {
+      setExpandedService(id);  // Expandir el texto
+    }
+  };
+
+  const handleVerMasArtista = (id_artista) => {
+    setExpandedArtist(expandedArtist === id_artista ? null : id_artista);
+  };
+
+  // Función para manejar el toggle del dropdown
+  const handleToggleDropdown = (id_programa) => {
+    setOpenDropdown(openDropdown === id_programa ? null : id_programa);
   };
 
   return (
@@ -183,51 +205,56 @@ function Home() {
         </Carousel>
       )}
 
-      {/* SECCION PARA LOS SERVICIOS SOCIALES */}
-      <section className="page-section bg-light" id="team">
-        <div className="container" id="servicios">
-          <div className="text-center">
-            <h2 className="section-heading text-uppercase text-black" style={{ fontSize: '38px' }}>Servicio Social</h2>
-            <h3 className="section-subheading text-black">Sección reservada para colaborar.</h3>
+      <section className="bg-light py-12" id="servicios">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-black uppercase">Servicio Social</h2>
+            <h3 className="text-lg text-black mt-2">Sección reservada para colaborar.</h3>
           </div>
-          <div className="row">
-            {serviciosSociales.length > 0 && serviciosSociales.map(servicio => (
-              <div
-                key={servicio.id_servicio}
-                className={`justify-content-center ${serviciosSociales.length === 1 ? 'col-lg-12 col-md-12 col-sm-12' : serviciosSociales.length === 2 ? 'col-lg-6 col-md-12 col-sm-12' : serviciosSociales.length >= 3 ? 'col-lg-4 col-md-12 col-sm-12' : 'col-6'} px-5`}
-              >
-                <div className='team-member text-center mt-4'>
-                  <img className='mx-auto rounded-circle-custom rounded-circle' src={transformDropboxUrl(servicio.url_image)} alt={`Imagen de ${servicio.nombre}`} />
-                  <h4>{servicio.nombre}</h4>
-                  <p className='text-black mb-2 mt-4'>{servicio.informacion}</p>
-                </div>
-                <div className='row mt-3 mb-3 justify-content-center'>
-                  <div className={`d-flex justify-content-center ${servicio.tipo !== 'audio' ? 'col-md-12' : 'col-md-6'} mb-2 mb-md-0`}>
-                    <a href={servicio.url_pagina} rel="noreferrer" target='_blank' className=' text-center btn btn-secondary btn-lg w-100 text-sm md:text-base wider-btn'>
+          <div className={`grid gap-8 ${serviciosSociales.length === 1 ? 'grid-cols-1' :
+            serviciosSociales.length === 2 ? 'sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2' :
+              'sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+            }`}>
+            {serviciosSociales.map((servicio) => (
+              <div key={servicio.id_servicio} className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out max-w-sm mx-auto">
+                <div className="flex flex-col h-full justify-between">
+                  <div className="text-center p-4">
+                    {/* Contenedor para imagen redondeada */}
+                    <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border border-black flex items-center justify-center bg-white">
+                      <img className="w-full h-full object-contain" src={transformDropboxUrl(servicio.url_image)} alt={`Imagen de ${servicio.nombre}`} />
+                    </div>
+                    <h4 className="text-xl font-semibold text-gray-800">{servicio.nombre}</h4>
+                    <p className={`text-gray-600 mt-2 ${expandedService === servicio.id_servicio ? '' : 'line-clamp-4'}`}>
+                      {servicio.informacion}
+                    </p>
+                    {servicio.informacion.length > 152 && (
+                      <button className="text-blue-500 hover:underline mt-2" onClick={() => handleVerMas(servicio.id_servicio)}>
+                        {expandedService === servicio.id_servicio ? 'Ver menos' : 'Ver más'}
+                      </button>
+                    )}
+                  </div>
+                  <div className="p-4 flex-grow flex flex-col justify-center">
+                    <a href={servicio.url_pagina} target="_blank" rel="noreferrer" className="block w-full text-center text-white bg-secondary rounded-lg py-2">
                       Información
                     </a>
-                  </div>
-                  {servicio.tipo === 'audio' && (
-                    <div className='col-md-6 d-flex justify-content-center'>
-                      <div className='dropdown w-100'>
-                        <button className='btn btn-warning btn-lg w-100 text-sm md:text-base wider-btn' type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    {servicio.tipo === 'audio' && (
+                      <div className="mt-4">
+                        <button className="block w-full text-center text-white bg-warning rounded-lg py-2" type="button">
                           {servicio.nombre_audios}
                         </button>
-                        <ul className="dropdown-menu scrollable-menu" style={{ height: 'auto', maxHeight: '200px', overflowX: 'hidden' }} aria-labelledby="dropdownMenuButton1">
-                          {servicio.audios_servicio.map(audio => (
-                            <React.Fragment key={audio.id_audio}>
-                              <li><a className="dropdown-item" href={transformDropboxUrl(audio.url_audio)}>{audio.nombre} - {audio.fecha}</a></li>
-                              <li>
-                                <audio id="stream" controls preload="none" style={{ width: '350px' }}>
-                                  <source src={transformDropboxUrl(audio.url_audio)} type="audio/mpeg" />
-                                </audio>
-                              </li>
-                            </React.Fragment>
+                        <div className="mt-2">
+                          {servicio.audios_servicio.map((audio) => (
+                            <div key={audio.id_audio} className="mt-2">
+                              <a href={transformDropboxUrl(audio.url_audio)} className="block text-blue-500 hover:underline">{audio.nombre} - {audio.fecha}</a>
+                              <audio className="w-full mt-1" controls preload="none">
+                                <source src={transformDropboxUrl(audio.url_audio)} type="audio/mpeg" />
+                              </audio>
+                            </div>
                           ))}
-                        </ul>
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
@@ -237,26 +264,39 @@ function Home() {
 
       {/* SECCION PARA LA PUBLICIDAD */}
       {selectedRadio && publicidades.length > 0 && (
-        <section className="page-section bg-secondary" id="portfolio">
-          <div className="container">
-            <div className="text-center">
-              <h2 className="section-heading text-uppercase text-white">PUBLICIDAD</h2>
-              <h3 className="section-subheading text-white" id='publicidades'>Sección reservada para la publicidad.</h3>
+        <section className="bg-secondary py-12" id="publicidades">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-white uppercase">PUBLICIDAD</h2>
+              <h3 className="text-lg text-white mt-2">Sección reservada para la publicidad.</h3>
             </div>
-            <div className="row justify-content-center">
-              {publicidades.map(publicidad => (
-                <div
-                  key={publicidad.id_publicidad}
-                  className={`justify-content-center ${publicidades.length === 1 ? 'col-lg-12 col-md-12 col-sm-12' : publicidades.length === 2 ? 'col-lg-6 col-md-6 col-sm-6' : publicidades.length >= 3 ? 'col-lg-3 col-md-4 col-sm-6' : 'col-4'} d-flex`}
-                >
-                  <div className="team-member team-publicidad pb-2">
-                    <img className="mx-auto" src={transformDropboxUrl(publicidad.url_image)} alt={`Imagen de ${publicidad.nombre}`} />
-                    <h4 className='text-black'>{publicidad.nombre}</h4>
-                    <p className="text-black mt-2 mb-3">{publicidad.informacion}</p>
-                    <div className="social-buttons">
-                      <a className="btn btn-dark btn-social mx-2" href={publicidad.url_twitter} aria-label="Twitter Profile"><i className="fab fa-twitter"></i></a>
-                      <a className="btn btn-dark btn-social mx-2" href={publicidad.url_facebook} aria-label="Facebook Profile"><i className="fab fa-facebook-f"></i></a>
-                      <a className="btn btn-dark btn-social mx-2" href={publicidad.url_instagram} aria-label="Instagram Profile"><i className="fab fa-instagram"></i></a>
+            <div className={`grid gap-8 ${publicidades.length === 1 ? 'grid-cols-1' :
+              publicidades.length === 2 ? 'sm:grid-cols-2' :
+                publicidades.length === 3 ? 'sm:grid-cols-2 md:grid-cols-3' :
+                  'sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
+              }`}>
+              {publicidades.map((publicidad) => (
+                <div key={publicidad.id_publicidad} className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out max-w-xs w-full mx-auto h-96 flex flex-col">
+                  <div className="flex-shrink-0">
+                    <img className="w-full h-48 object-cover" src={transformDropboxUrl(publicidad.url_image)} alt={`Imagen de ${publicidad.nombre}`} />
+                  </div>
+                  <div className="p-4 text-center flex flex-col justify-between flex-grow">
+                    <div>
+                      <h4 className="text-xl font-semibold text-gray-800">{publicidad.nombre}</h4>
+                      {/* Condicional para mostrar más o menos texto */}
+                      <p className={`text-gray-600 mt-2 ${expandedService === publicidad.id_publicidad ? '' : 'line-clamp-3'}`}>
+                        {publicidad.informacion}
+                      </p>
+                      {publicidad.informacion.length > 100 && (
+                        <button className="text-blue-500 hover:underline mt-2" onClick={() => handleVerMas(publicidad.id_publicidad)}>
+                          {expandedService === publicidad.id_publicidad ? 'Ver menos' : 'Ver más'}
+                        </button>
+                      )}
+                    </div>
+                    <div className="mt-4 flex justify-center space-x-3">
+                      <a href={publicidad.url_twitter} className="text-gray-500 hover:text-gray-900 text-2xl"><i className="fab fa-twitter"></i></a>
+                      <a href={publicidad.url_facebook} className="text-gray-500 hover:text-gray-900 text-2xl"><i className="fab fa-facebook-f"></i></a>
+                      <a href={publicidad.url_instagram} className="text-gray-500 hover:text-gray-900 text-2xl"><i className="fab fa-instagram"></i></a>
                     </div>
                   </div>
                 </div>
@@ -265,100 +305,119 @@ function Home() {
           </div>
         </section>
       )}
+
 
       {/* SECCION PARA LOS PROGRAMAS Y PROGRAMACIONES */}
       {selectedRadio && programas.length > 0 && (
-        <section className="page-section bg-light" id="portfolio">
-          <div className="container">
-            <div className="text-center">
-              <h2 className="section-heading text-uppercase text-black">PROGRAMAS</h2>
-              <h3 className="section-subheading text-black" id='programas'>Sección reservada para los programas de {getRadioName(selectedRadio)}.</h3>
+        <section className="bg-light py-12">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-black uppercase">PROGRAMAS</h2>
+              <h3 className="text-lg text-black mt-2">Sección reservada para los programas de {getRadioName(selectedRadio)}.</h3>
             </div>
-            <div className="row justify-content-center">
-              {programas.map(programa => (
-                <div
-                  key={programa.id_programa}
-                  className={`justify-content-center ${programas.length === 1 ? 'col-lg-12 col-md-12 col-sm-12' : programas.length === 2 ? 'col-lg-6 col-md-6 col-sm-12' : programas.length >= 3 ? 'col-lg-4 col-md-6 col-sm-12' : 'col-4'} d-flex`}
-                >
-                  <div>
-                    <div className="programas-item mb-3">
-                      <img className="img-fluid" src={transformDropboxUrl(programa.url_banner)} alt={`Imagen de ${programa.nombre}`} />
-                      <h4>{programa.nombre}</h4>
-                      <p className='mb-2 mt-2'><b>Conductor:</b> {programa.nombre_conductor}</p>
-                      <p className='mt-2'><b>Certificado de Locución:</b> {programa.certificado_locucion}</p>
-                    </div>
+            <div className={`grid gap-8 ${programas.length === 1 ? 'grid-cols-1' :
+                programas.length === 2 ? 'sm:grid-cols-2' :
+                  programas.length === 3 ? 'sm:grid-cols-2 md:grid-cols-3' :
+                    'sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3'
+              }`}>
+              {programas.map((programa) => {
+                const programacionesAgrupadas = groupProgramacionesByMonthAndYear(programa.programaciones || []);
 
-                    <div className='dropdown w-100 mb-3'>
-                      <button className='btn btn-warning btn-lg w-100 text-sm md:text-base' type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        Programación
-                      </button>
-                      <ul className="dropdown-menu scrollable-menu" style={{ height: 'auto', maxHeight: '200px', overflowX: 'hidden' }} aria-labelledby="dropdownMenuButton1">
-                        {programa.programacionesAgrupadas && Object.keys(programa.programacionesAgrupadas).length > 0 ? (
-                          Object.keys(programa.programacionesAgrupadas).sort((a, b) => b - a).map(year => (
-                            <li key={year}>
-                              <h3 className="text-uppercase my-2 py-2" style={{ backgroundColor: '#3B82F6', color: '#FFFFFF', paddingLeft: '10px' }}>
-                                {year}
-                              </h3>
-                              {Object.keys(programa.programacionesAgrupadas[year]).sort((a, b) => new Date(b + ' 1') - new Date(a + ' 1')).map(month => (
-                                <li key={month}>
-                                  <h4 className="text-uppercase my-2 py-1" style={{ backgroundColor: '#93C5FD', color: '#1E3A8A', paddingLeft: '20px' }}>
-                                    {month}
-                                  </h4>
-                                  {programa.programacionesAgrupadas[year][month].sort((a, b) => new Date(b.fecha_transmision) - new Date(a.fecha_transmision)).map(programacion => (
-                                    <React.Fragment key={programacion.id_programacion}>
-                                      <li className="dropdown-item">
-                                        <a className="dropdown-item" href={transformDropboxUrl(programacion.url_audio)}>
-                                          {programacion.nombre} - {programacion.fecha_transmision}
-                                        </a>
-                                      </li>
-                                      <li>
-                                        <audio id="stream" controls preload="none" style={{ width: '350px' }}>
-                                          <source src={transformDropboxUrl(programacion.url_audio)} type="audio/mpeg" />
-                                        </audio>
-                                      </li>
-                                    </React.Fragment>
+                return (
+                  <div key={programa.id_programa} className="relative bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out max-w-xs mx-auto">
+                    <img className="w-full h-48 object-cover rounded-t-lg" src={transformDropboxUrl(programa.url_banner)} alt={`Imagen de ${programa.nombre}`} />
+                    <div className="p-4 text-center">
+                      <h4 className="text-xl font-semibold text-gray-800">{programa.nombre}</h4>
+                      <p className="text-gray-600 mt-2"><b>Conductor:</b> {programa.nombre_conductor}</p>
+                      <p className="text-gray-600 mt-2"><b>Certificado de Locución:</b> {programa.certificado_locucion}</p>
+                      <div className="relative mt-4">
+                        {/* Botón para abrir/cerrar el dropdown */}
+                        <button className="block w-full text-center text-white bg-warning rounded-lg py-2" type="button" onClick={() => handleToggleDropdown(programa.id_programa)}>
+                          Programación
+                        </button>
+                        {/* Dropdown contenido */}
+                        {openDropdown === programa.id_programa && (
+                          <div className="absolute left-0 right-0 bottom-full bg-white rounded-lg shadow-lg mb-2 p-4 text-left max-h-64 overflow-y-auto z-20">
+                            {Object.keys(programacionesAgrupadas).length > 0 ? (
+                              Object.keys(programacionesAgrupadas).sort((a, b) => b - a).map((year) => (
+                                <div key={year} className="mb-4">
+                                  <div className="bg-blue-600 text-white px-4 py-2 rounded-md">
+                                    <h3 className="text-lg font-bold">{year}</h3>
+                                  </div>
+                                  {Object.keys(programacionesAgrupadas[year]).sort((a, b) => new Date(b + ' 1') - new Date(a + ' 1')).map((month) => (
+                                    <div key={month} className="mt-2">
+                                      <div className="bg-blue-200 text-blue-900 px-3 py-1 rounded-md">
+                                        <h4 className="text-md font-semibold">{month.charAt(0).toUpperCase() + month.slice(1)}</h4>
+                                      </div>
+                                      <div className="mt-2 ml-4">
+                                        {programacionesAgrupadas[year][month].sort((a, b) => new Date(b.fecha_transmision) - new Date(a.fecha_transmision)).map((programacion, index) => (
+                                          <div key={programacion.id_programacion} className={`mt-1 ${index < programacionesAgrupadas[year][month].length - 1 ? 'border-b border-gray-300' : ''} pb-2`}>
+                                            <a href={transformDropboxUrl(programacion.url_audio)} className="block text-blue-500 hover:underline">{programacion.nombre} - {programacion.fecha_transmision}</a>
+                                            <audio className="w-full mt-1" controls preload="none">
+                                              <source src={transformDropboxUrl(programacion.url_audio)} type="audio/mpeg" />
+                                            </audio>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
                                   ))}
-                                </li>
-                              ))}
-                            </li>
-                          ))
-                        ) : (
-                          <li className="dropdown-item text-center text-muted">Programación no disponible</li>
+                                </div>
+                              ))
+                            ) : (
+                              <p className="text-center text-gray-600">Programación no disponible</p>
+                            )}
+                          </div>
                         )}
-                      </ul>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
       )}
+
+
+
 
       {/* SECCION PARA LOS ARTISTAS INVITADOS */}
       {selectedRadio && artistas.length > 0 && (
-        <section className="page-section bg-secondary" id="portfolio">
-          <div className="container">
-            <div className="text-center">
-              <h2 className="section-heading text-uppercase text-white">Artistas Invitados</h2>
-              <h3 className="section-subheading text-white" id='artistas'>Sección reservada para los artistas invitados.</h3>
+        <section className="bg-secondary py-8" id="artistas">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-white uppercase">Artistas Invitados</h2>
+              <h3 className="text-lg text-white mt-2">Sección reservada para los artistas invitados.</h3>
             </div>
-            <div className="row justify-content-center">
-              {artistas.map(artista => (
+            <div className={`grid gap-8 ${artistas.length === 1 ? 'grid-cols-1' :
+                artistas.length === 2 ? 'sm:grid-cols-2' :
+                  artistas.length === 3 ? 'sm:grid-cols-2 md:grid-cols-3' :
+                    'sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3'
+              }`}>
+              {artistas.map((artista) => (
                 <div
                   key={artista.id_artista}
-                  className={`justify-content-center ${artistas.length === 1 ? 'col-lg-12 col-md-12 col-sm-12' : artistas.length === 2 ? 'col-lg-6 col-md-6 col-sm-12' : artistas.length >= 3 ? 'col-lg-4 col-md-4 col-sm-12' : 'col-4'} d-flex`}
+                  className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out max-w-xs mx-auto"
                 >
-                  <div className="portfolio-item mb-5">
-                    <a className="portfolio-link" data-bs-toggle="modal" href="/">
-                      <div className="portfolio-hover">
-                        <div className="portfolio-hover-content"><i className="fas fa-plus fa-3x"></i></div>
-                      </div>
-                      <img className="img-fluid" src={transformDropboxUrl(artista.url_image)} alt={`Imagen de ${artista.nombre}`} />
-                    </a>
-                    <div className="portfolio-caption">
-                      <div className="portfolio-caption-heading">{artista.nombre}</div>
-                      <div className="portfolio-caption-subheading text-muted">{artista.informacion}</div>
+                  <a href="/" data-bs-toggle="modal" className="block">
+                    <img
+                      className="w-full h-48 object-cover rounded-t-lg"
+                      src={transformDropboxUrl(artista.url_image)}
+                      alt={`Imagen de ${artista.nombre}`}
+                    />
+                  </a>
+                  <div className="p-4 text-center flex flex-col justify-between h-full">
+                    <div>
+                      <h4 className="text-xl font-semibold text-gray-800">{artista.nombre}</h4>
+                      {/* Limitar el texto de información */}
+                      <p className={`text-gray-600 mt-2 ${expandedArtist === artista.id_artista ? '' : 'line-clamp-3'}`}>
+                        {artista.informacion}
+                      </p>
+                      {artista.informacion.length > 100 && (
+                        <button className="text-blue-500 hover:underline mt-2" onClick={() => handleVerMasArtista(artista.id_artista)}>
+                          {expandedArtist === artista.id_artista ? 'Ver menos' : 'Ver más'}
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -368,50 +427,82 @@ function Home() {
         </section>
       )}
 
+
+
       {/* SECCION PARA CONTACTO */}
-      <section className="page-section bg-black" id="contact">
-        <div className="container">
-          <div className="text-center">
-            <h2 className="section-heading text-uppercase" id='contacto'>Contáctanos</h2>
-            <h3 className="section-subheading text-white">Contáctanos.</h3>
+      <section className="bg-black py-16" id="contact">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white uppercase" id='contacto'>Contáctanos</h2>
+            <h3 className="text-xl text-white mt-2">Sección reservada para colaborar.</h3>
           </div>
-          <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-            <div className="row align-items-stretch mb-5">
-              <div className="col-md-6">
-                <div className="form-group">
-                  <input className="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
-                  <div className="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
-                </div>
-                <div className="form-group">
-                  <input className="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
-                  <div className="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                  <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
-                </div>
-                <div className="form-group mb-md-0">
-                  <input className="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
-                  <div className="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
-                </div>
+          <form id="contactForm" data-sb-form-api-token="API_TOKEN" className="max-w-2xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-5">
+              <div>
+                <input
+                  className="w-full p-4 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  id="name"
+                  type="text"
+                  placeholder="Your Name *"
+                  data-sb-validations="required"
+                />
+                <div className="text-red-500 text-sm mt-1 hidden" data-sb-feedback="name:required">A name is required.</div>
               </div>
-              <div className="col-md-6">
-                <div className="form-group form-group-textarea mb-md-0">
-                  <textarea className="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
-                  <div className="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
-                </div>
+              <div>
+                <input
+                  className="w-full p-4 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  id="email"
+                  type="email"
+                  placeholder="Your Email *"
+                  data-sb-validations="required,email"
+                />
+                <div className="text-red-500 text-sm mt-1 hidden" data-sb-feedback="email:required">An email is required.</div>
+                <div className="text-red-500 text-sm mt-1 hidden" data-sb-feedback="email:email">Email is not valid.</div>
+              </div>
+              <div>
+                <input
+                  className="w-full p-4 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  id="phone"
+                  type="tel"
+                  placeholder="Your Phone *"
+                  data-sb-validations="required"
+                />
+                <div className="text-red-500 text-sm mt-1 hidden" data-sb-feedback="phone:required">A phone number is required.</div>
+              </div>
+              <div>
+                <textarea
+                  className="w-full p-4 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
+                  id="message"
+                  placeholder="Your Message *"
+                  data-sb-validations="required"
+                ></textarea>
+                <div className="text-red-500 text-sm mt-1 hidden" data-sb-feedback="message:required">A message is required.</div>
               </div>
             </div>
-            <div className="d-none" id="submitSuccessMessage">
+            <div className="hidden" id="submitSuccessMessage">
               <div className="text-center text-white mb-3">
-                <div className="fw-bolder">Form submission successful!</div>
+                <div className="font-bold">Form submission successful!</div>
                 To activate this form, sign up at
                 <br />
-                <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                <a href="https://startbootstrap.com/solution/contact-forms" className="text-blue-400">https://startbootstrap.com/solution/contact-forms</a>
               </div>
             </div>
-            <div className="d-none" id="submitErrorMessage"><div className="text-center text-danger mb-3">Error sending message!</div></div>
-            <div className="text-center"><button className="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Send Message</button></div>
+            <div className="hidden" id="submitErrorMessage">
+              <div className="text-center text-red-500 mb-3">Error sending message!</div>
+            </div>
+            <div className="text-center">
+              <button
+                className="bg-blue-500 text-white font-semibold py-3 px-6 rounded-md uppercase transition duration-300 hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                id="submitButton"
+                type="submit"
+              >
+                Send Message
+              </button>
+            </div>
           </form>
         </div>
       </section>
+
 
       {/* Footer */}
       <Footer />
