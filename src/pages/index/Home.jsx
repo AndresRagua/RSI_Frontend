@@ -15,10 +15,15 @@ const transformDropboxUrl = (url) => {
 // Función para agrupar las programaciones
 const groupProgramacionesByMonthAndYear = (programaciones) => {
   const grouped = {};
+  const monthNames = [
+    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 
+    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+  ];
+
   programaciones.forEach(programacion => {
     const date = new Date(programacion.fecha_transmision);
     const year = date.getFullYear();
-    const month = date.toLocaleString('es-ES', { month: 'long' });
+    const month = monthNames[date.getMonth()]; // Obtener el nombre del mes basado en el índice
 
     if (!grouped[year]) {
       grouped[year] = {};
@@ -33,6 +38,7 @@ const groupProgramacionesByMonthAndYear = (programaciones) => {
 
   return grouped;
 };
+
 
 function Home() {
   const [serviciosSociales, setServiciosSociales] = useState([]);
