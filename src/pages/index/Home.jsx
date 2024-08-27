@@ -22,8 +22,9 @@ const groupProgramacionesByMonthAndYear = (programaciones) => {
 
   programaciones.forEach(programacion => {
     const date = new Date(programacion.fecha_transmision);
-    const year = date.getFullYear();
-    const month = monthNames[date.getMonth()]; // Obtener el nombre del mes basado en el índice
+    const year = date.getUTCFullYear(); // Usar getUTCFullYear para evitar problemas de zona horaria
+    const monthIndex = date.getUTCMonth(); // Usar getUTCMonth para evitar problemas de zona horaria
+    const month = monthNames[monthIndex];
 
     if (!grouped[year]) {
       grouped[year] = {};
@@ -36,7 +37,18 @@ const groupProgramacionesByMonthAndYear = (programaciones) => {
     grouped[year][month].push(programacion);
   });
 
-  return grouped;
+  // Ordenar los años y los meses correctamente
+  const sortedGrouped = {};
+  Object.keys(grouped).sort((a, b) => a - b).forEach(year => {
+    sortedGrouped[year] = {};
+    Object.keys(grouped[year])
+      .sort((a, b) => monthNames.indexOf(a) - monthNames.indexOf(b))
+      .forEach(month => {
+        sortedGrouped[year][month] = grouped[year][month];
+      });
+  });
+
+  return sortedGrouped;
 };
 
 
