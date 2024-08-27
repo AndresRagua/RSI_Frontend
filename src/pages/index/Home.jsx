@@ -12,13 +12,14 @@ const transformDropboxUrl = (url) => {
   return url?.replace("www.dropbox.com", "dl.dropboxusercontent.com").replace("?dl=0", "");
 };
 
+const monthNames = [
+  'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+  'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+];
+
 // Función para agrupar las programaciones
 const groupProgramacionesByMonthAndYear = (programaciones) => {
   const grouped = {};
-  const monthNames = [
-    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
-  ];
 
   programaciones.forEach(programacion => {
     const date = new Date(programacion.fecha_transmision);
@@ -50,7 +51,6 @@ const groupProgramacionesByMonthAndYear = (programaciones) => {
 
   return sortedGrouped;
 };
-
 
 
 function Home() {
@@ -441,7 +441,6 @@ function Home() {
           </div>
         </section>
       )}
-
 
 
 
