@@ -16,7 +16,7 @@ const transformDropboxUrl = (url) => {
 const groupProgramacionesByMonthAndYear = (programaciones) => {
   const grouped = {};
   const monthNames = [
-    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 
+    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
     'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
   ];
 
@@ -231,79 +231,79 @@ function Home() {
 
 
 
-<section className="bg-light py-12" id="servicios">
-  <div className="container mx-auto px-4">
-    <div className="text-center mb-8">
-      <h2 className="text-3xl font-bold text-black uppercase">Servicio Social</h2>
-      <h3 className="text-lg text-black mt-2">Sección reservada para colaborar.</h3>
-    </div>
-    <div className={`grid gap-8 ${serviciosSociales.length === 1 ? 'grid-cols-1' :
-      serviciosSociales.length === 2 ? 'sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2' :
-        'sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-      }`}>
-      {serviciosSociales.map((servicio) => {
-        const isOpen = openAudioDropdown === servicio.id_servicio; // Verificar si el dropdown está abierto para este servicio
-
-        return (
-          <div 
-            key={servicio.id_servicio} 
-            className="relative bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out max-w-sm mx-auto"
-          >
-            <div className="flex flex-col h-full justify-between">
-              <div className="text-center p-4">
-                {/* Contenedor para imagen redondeada */}
-                <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border border-black flex items-center justify-center bg-white">
-                  <img className="w-full h-full object-contain" src={transformDropboxUrl(servicio.url_image)} alt={`Imagen de ${servicio.nombre}`} />
-                </div>
-                <h4 className="text-xl font-semibold text-gray-800">{servicio.nombre}</h4>
-                <p className={`text-gray-600 mt-2 ${expandedService === servicio.id_servicio ? '' : 'line-clamp-4'}`}>
-                  {servicio.informacion}
-                </p>
-                {servicio.informacion.length > 152 && (
-                  <button className="text-blue-500 hover:underline mt-2" onClick={() => handleVerMas(servicio.id_servicio)}>
-                    {expandedService === servicio.id_servicio ? 'Ver menos' : 'Ver más'}
-                  </button>
-                )}
-              </div>
-              <div className="p-4 flex-grow flex flex-col">
-                <a href={servicio.url_pagina} target="_blank" rel="noreferrer" className="block w-full text-center text-white bg-secondary rounded-lg py-2 mb-2">
-                  Información
-                </a>
-                {servicio.tipo === 'audio' && (
-                  <div className="mt-4 relative">
-                    {/* Botón para abrir/cerrar el dropdown */}
-                    <button 
-                      className="block w-full text-center text-white bg-warning rounded-lg py-2 mb-2" 
-                      type="button" 
-                      onClick={() => handleToggleAudioDropdown(servicio.id_servicio)}
-                    >
-                      {servicio.nombre_audios}
-                    </button>
-                    {/* Dropdown contenido */}
-                    {isOpen && (
-                      <div className="absolute left-0 right-0 bottom-full mb-2 bg-white rounded-lg shadow-lg p-4 text-left max-h-64 overflow-y-auto z-20">
-                        {servicio.audios_servicio.map((audio) => (
-                          <div key={audio.id_audio} className="mt-2">
-                            <div className="bg-blue-400 text-white px-4 rounded-md mb-2">
-                              <h3 className="text-lg font-bold">{audio.nombre}</h3>
-                            </div>
-                            <audio className="w-full mt-1" controls preload="none">
-                              <source src={transformDropboxUrl(audio.url_audio)} type="audio/mpeg" />
-                            </audio>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
+      <section className="bg-light py-12" id="servicios">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-black uppercase">Servicio Social</h2>
+            <h3 className="text-lg text-black mt-2">Sección reservada para colaborar.</h3>
           </div>
-        );
-      })}
-    </div>
-  </div>
-</section>
+          <div className={`grid gap-8 ${serviciosSociales.length === 1 ? 'grid-cols-1' :
+            serviciosSociales.length === 2 ? 'sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2' :
+              'sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+            }`}>
+            {serviciosSociales.map((servicio) => {
+              const isOpen = openAudioDropdown === servicio.id_servicio; // Verificar si el dropdown está abierto para este servicio
+
+              return (
+                <div
+                  key={servicio.id_servicio}
+                  className="relative bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out max-w-sm mx-auto"
+                >
+                  <div className="flex flex-col h-full justify-between">
+                    <div className="text-center p-4">
+                      {/* Contenedor para imagen redondeada */}
+                      <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border border-black flex items-center justify-center bg-white">
+                        <img className="w-full h-full object-contain" src={transformDropboxUrl(servicio.url_image)} alt={`Imagen de ${servicio.nombre}`} />
+                      </div>
+                      <h4 className="text-xl font-semibold text-gray-800">{servicio.nombre}</h4>
+                      <p className={`text-gray-600 mt-2 ${expandedService === servicio.id_servicio ? '' : 'line-clamp-4'}`}>
+                        {servicio.informacion}
+                      </p>
+                      {servicio.informacion.length > 152 && (
+                        <button className="text-blue-500 hover:underline mt-2" onClick={() => handleVerMas(servicio.id_servicio)}>
+                          {expandedService === servicio.id_servicio ? 'Ver menos' : 'Ver más'}
+                        </button>
+                      )}
+                    </div>
+                    <div className="p-4 flex-grow flex flex-col">
+                      <a href={servicio.url_pagina} target="_blank" rel="noreferrer" className="block w-full text-center text-white bg-secondary rounded-lg py-2 mb-2">
+                        Información
+                      </a>
+                      {servicio.tipo === 'audio' && (
+                        <div className="mt-4 relative">
+                          {/* Botón para abrir/cerrar el dropdown */}
+                          <button
+                            className="block w-full text-center text-white bg-warning rounded-lg py-2 mb-2"
+                            type="button"
+                            onClick={() => handleToggleAudioDropdown(servicio.id_servicio)}
+                          >
+                            {servicio.nombre_audios}
+                          </button>
+                          {/* Dropdown contenido */}
+                          {isOpen && (
+                            <div className="absolute left-0 right-0 bottom-full mb-2 bg-white rounded-lg shadow-lg p-4 text-left max-h-64 overflow-y-auto z-20">
+                              {servicio.audios_servicio.map((audio) => (
+                                <div key={audio.id_audio} className="mt-2">
+                                  <div className="bg-blue-400 text-white px-4 rounded-md mb-2">
+                                    <h3 className="text-lg font-bold">{audio.nombre}</h3>
+                                  </div>
+                                  <audio className="w-full mt-1" controls preload="none">
+                                    <source src={transformDropboxUrl(audio.url_audio)} type="audio/mpeg" />
+                                  </audio>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
 
 
@@ -360,83 +360,87 @@ function Home() {
       )}
 
 
-{/* SECCION PARA LOS PROGRAMAS Y PROGRAMACIONES */}
-{selectedRadio && programas.length > 0 && (
-  <section className="bg-light py-12">
-    <div className="container mx-auto px-4">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-black uppercase">PROGRAMAS</h2>
-        <h3 className="text-lg text-black mt-2">Sección reservada para los programas de {getRadioName(selectedRadio)}.</h3>
-      </div>
-      <div className={`grid gap-8 ${programas.length === 1 ? 'grid-cols-1' :
-          programas.length === 2 ? 'sm:grid-cols-2' :
-            programas.length === 3 ? 'sm:grid-cols-2 md:grid-cols-3' :
-              'sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3'
-        }`}>
-        {programas.map((programa) => {
-          const programacionesAgrupadas = groupProgramacionesByMonthAndYear(programa.programaciones || []);
-          const isOpen = openDropdown === programa.id_programa;
-
-          return (
-            <div 
-              key={programa.id_programa} 
-              className={`relative bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out max-w-xs w-full mx-auto ${isOpen ? 'h-auto' : 'h-full max-h-[450px]'}`}
-            >
-              {/* Contenedor de la imagen */}
-              <div className="w-full h-48 overflow-hidden rounded-t-lg flex items-center justify-center">
-                <img className="max-w-full max-h-full object-contain" src={transformDropboxUrl(programa.url_banner)} alt={`Imagen de ${programa.nombre}`} />
-              </div>
-              <div className="p-4 text-center">
-                <h4 className="text-xl font-semibold text-gray-800">{programa.nombre}</h4>
-                <p className="text-gray-600 mt-2"><b>Conductor:</b> {programa.nombre_conductor}</p>
-                <p className="text-gray-600 mt-2"><b>Certificado de Locución:</b> {programa.certificado_locucion}</p>
-                <div className="relative mt-4">
-                  {/* Botón para abrir/cerrar el dropdown */}
-                  <button className="block w-full text-center text-white bg-warning rounded-lg py-2" type="button" onClick={() => handleToggleDropdown(programa.id_programa)}>
-                    Programación
-                  </button>
-                  {/* Dropdown contenido */}
-                  {isOpen && (
-                    <div className="mt-2 bg-white rounded-lg shadow-lg p-4 text-left max-h-64 overflow-y-auto">
-                      {Object.keys(programacionesAgrupadas).length > 0 ? (
-                        Object.keys(programacionesAgrupadas).sort((a, b) => b - a).map((year) => (
-                          <div key={year} className="mb-4">
-                            <div className="bg-blue-600 text-white px-4 rounded-md">
-                              <h3 className="text-lg font-bold">{year}</h3>
-                            </div>
-                            {Object.keys(programacionesAgrupadas[year]).sort((a, b) => new Date(b + ' 1') - new Date(a + ' 1')).map((month) => (
-                              <div key={month} className="mt-2">
-                                <div className="bg-blue-200 text-blue-900 px-3 py-1 rounded-md">
-                                  <h4 className="text-md font-semibold">{month.charAt(0).toUpperCase() + month.slice(1)}</h4>
-                                </div>
-                                <div className="mt-2 ml-4">
-                                  {programacionesAgrupadas[year][month].sort((a, b) => new Date(b.fecha_transmision) - new Date(a.fecha_transmision)).map((programacion, index) => (
-                                    <div key={programacion.id_programacion} className={`mt-1 ${index < programacionesAgrupadas[year][month].length - 1 ? 'border-b border-gray-300' : ''} pb-2`}>
-                                      <a href={transformDropboxUrl(programacion.url_audio)} className="block text-blue-500 hover:underline mb-1">{programacion.nombre}</a>
-                                      <audio className="w-full mt-1" controls preload="none">
-                                        <source src={transformDropboxUrl(programacion.url_audio)} type="audio/mpeg" />
-                                      </audio>
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        ))
-                      ) : (
-                        <p className="text-center text-gray-600">Programación no disponible</p>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </div>
+      {/* SECCION PARA LOS PROGRAMAS Y PROGRAMACIONES */}
+      {selectedRadio && programas.length > 0 && (
+        <section className="bg-light py-12">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-black uppercase">PROGRAMAS</h2>
+              <h3 className="text-lg text-black mt-2">Sección reservada para los programas de {getRadioName(selectedRadio)}.</h3>
             </div>
-          );
-        })}
-      </div>
-    </div>
-  </section>
-)}
+            <div className={`grid gap-8 ${programas.length === 1 ? 'grid-cols-1' :
+              programas.length === 2 ? 'sm:grid-cols-2' :
+                programas.length === 3 ? 'sm:grid-cols-2 md:grid-cols-3' :
+                  'sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3'
+              }`}>
+              {programas.map((programa) => {
+                const programacionesAgrupadas = groupProgramacionesByMonthAndYear(programa.programaciones || []);
+                const isOpen = openDropdown === programa.id_programa;
+
+                return (
+                  <div
+                    key={programa.id_programa}
+                    className={`relative bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out max-w-xs w-full mx-auto ${isOpen ? 'h-auto' : 'h-full max-h-[450px]'}`}
+                  >
+                    {/* Contenedor de la imagen */}
+                    <div className="w-full h-48 overflow-hidden rounded-t-lg flex items-center justify-center">
+                      <img className="max-w-full max-h-full object-contain" src={transformDropboxUrl(programa.url_banner)} alt={`Imagen de ${programa.nombre}`} />
+                    </div>
+                    <div className="p-4 text-center">
+                      <h4 className="text-xl font-semibold text-gray-800">{programa.nombre}</h4>
+                      <p className="text-gray-600 mt-2"><b>Conductor:</b> {programa.nombre_conductor}</p>
+                      <p className="text-gray-600 mt-2"><b>Certificado de Locución:</b> {programa.certificado_locucion}</p>
+                      <div className="relative mt-4">
+                        {/* Botón para abrir/cerrar el dropdown */}
+                        <button className="block w-full text-center text-white bg-warning rounded-lg py-2" type="button" onClick={() => handleToggleDropdown(programa.id_programa)}>
+                          Programación
+                        </button>
+                        {/* Dropdown contenido */}
+                        {isOpen && (
+                          <div className="mt-2 bg-white rounded-lg shadow-lg p-4 text-left max-h-64 overflow-y-auto">
+                            {Object.keys(programacionesAgrupadas).length > 0 ? (
+                              Object.keys(programacionesAgrupadas).sort((a, b) => b - a).map((year) => (
+                                <div key={year} className="mb-4">
+                                  <div className="bg-blue-600 text-white px-4 rounded-md">
+                                    <h3 className="text-lg font-bold">{year}</h3>
+                                  </div>
+                                  {Object.keys(programacionesAgrupadas[year])
+                                    .sort((a, b) => monthNames.indexOf(b) - monthNames.indexOf(a)) // Ordenar meses en orden descendente
+                                    .map((month) => (
+                                      <div key={month} className="mt-2">
+                                        <div className="bg-blue-200 text-blue-900 px-3 py-1 rounded-md">
+                                          <h4 className="text-md font-semibold">{month.charAt(0).toUpperCase() + month.slice(1)}</h4>
+                                        </div>
+                                        <div className="mt-2 ml-4">
+                                          {programacionesAgrupadas[year][month]
+                                            .sort((a, b) => new Date(b.fecha_transmision) - new Date(a.fecha_transmision)) // Ordenar fechas en orden descendente
+                                            .map((programacion, index) => (
+                                              <div key={programacion.id_programacion} className={`mt-1 ${index < programacionesAgrupadas[year][month].length - 1 ? 'border-b border-gray-300' : ''} pb-2`}>
+                                                <a href={transformDropboxUrl(programacion.url_audio)} className="block text-blue-500 hover:underline mb-1">{programacion.nombre}</a>
+                                                <audio className="w-full mt-1" controls preload="none">
+                                                  <source src={transformDropboxUrl(programacion.url_audio)} type="audio/mpeg" />
+                                                </audio>
+                                              </div>
+                                            ))}
+                                        </div>
+                                      </div>
+                                    ))}
+                                </div>
+                              ))
+                            ) : (
+                              <p className="text-center text-gray-600">Programación no disponible</p>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
 
 
@@ -453,9 +457,9 @@ function Home() {
               <h3 className="text-lg text-white mt-2">Sección reservada para los artistas invitados.</h3>
             </div>
             <div className={`grid gap-8 ${artistas.length === 1 ? 'grid-cols-1' :
-                artistas.length === 2 ? 'sm:grid-cols-2' :
-                  artistas.length === 3 ? 'sm:grid-cols-2 md:grid-cols-3' :
-                    'sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3'
+              artistas.length === 2 ? 'sm:grid-cols-2' :
+                artistas.length === 3 ? 'sm:grid-cols-2 md:grid-cols-3' :
+                  'sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3'
               }`}>
               {artistas.map((artista) => (
                 <div
