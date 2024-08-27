@@ -37,12 +37,12 @@ const groupProgramacionesByMonthAndYear = (programaciones) => {
     grouped[year][month].push(programacion);
   });
 
-  // Ordenar los años y los meses correctamente
+  // Ordenar los años y los meses correctamente en orden descendente
   const sortedGrouped = {};
-  Object.keys(grouped).sort((a, b) => a - b).forEach(year => {
+  Object.keys(grouped).sort((a, b) => b - a).forEach(year => {
     sortedGrouped[year] = {};
     Object.keys(grouped[year])
-      .sort((a, b) => monthNames.indexOf(a) - monthNames.indexOf(b))
+      .sort((a, b) => monthNames.indexOf(b) - monthNames.indexOf(a)) // Orden descendente
       .forEach(month => {
         sortedGrouped[year][month] = grouped[year][month];
       });
@@ -50,6 +50,7 @@ const groupProgramacionesByMonthAndYear = (programaciones) => {
 
   return sortedGrouped;
 };
+
 
 
 function Home() {
