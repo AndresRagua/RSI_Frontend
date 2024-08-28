@@ -134,176 +134,172 @@ function Usuario() {
   };
 
   return (
-    <div className="flex flex-col bg-gray-200">
-      {/* Navbar */}
+    <div className="flex flex-col bg-gray-100 min-h-screen">
       <AdminNavBar />
-
-      <header className="mt-3 pt-5 pb-5 text-3xl font-bold text-gray-800 text-center">
+      
+      <header className="mt-4 py-5 text-3xl font-bold text-gray-800 text-center">
         Administrar Usuarios
       </header>
 
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            {/* Formulario para agregar */}
-            <form className="bg-secondary p-10 rounded-lg shadow-lg mb-8" onSubmit={handleAddSubmit}>
-              <h2 className="text-2xl mb-4 font-semibold-important text-white text-center">Agregar Usuario</h2>
+      <div className="px-4 md:px-8 lg:px-16">
+        <div className="flex flex-col lg:flex-row lg:space-x-8">
+          {/* Formulario para agregar un nuevo usuario */}
+          <form className="bg-white p-6 rounded-lg shadow-md mb-8 w-full lg:w-1/2" onSubmit={handleAddSubmit}>
+            <h2 className="text-2xl mb-4 font-semibold text-gray-800 text-center">Agregar Usuario</h2>
+            <input
+              type="text"
+              placeholder="Nombre del Usuario"
+              value={nombre}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setNombre(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Correo del Usuario"
+              value={correo}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setCorreo(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Teléfono del Usuario"
+              value={telefono}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setTelefono(e.target.value)}
+            />
+            <div className="relative mb-4">
               <input
-                type="text"
-                placeholder="Nombre del Usuario"
-                value={nombre}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setNombre(e.target.value)}
+                type={passwordVisible ? "text" : "password"}
+                placeholder="Contraseña"
+                value={password}
+                className="block py-2 px-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                onChange={(e) => setPassword(e.target.value)}
               />
-              <input
-                type="text"
-                placeholder="Correo del Usuario"
-                value={correo}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setCorreo(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Teléfono del Usuario"
-                value={telefono}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setTelefono(e.target.value)}
-              />
-              <div className="relative">
-                <input
-                  type={passwordVisible ? "text" : "password"}
-                  placeholder="Contraseña"
-                  value={password}
-                  className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <span
-                  onClick={togglePasswordVisibility}
-                  className="absolute right-3 top-3 cursor-pointer"
-                >
-                  {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-              <div className="relative">
-                <input
-                  type={confirmPasswordVisible ? "text" : "password"}
-                  placeholder="Confirmar Contraseña"
-                  value={confirmPassword}
-                  className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-                <span
-                  onClick={toggleConfirmPasswordVisibility}
-                  className="absolute right-3 top-3 cursor-pointer"
-                >
-                  {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-              <select
-                value={fkRadio}
-                onChange={(e) => setFkRadio(e.target.value)}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
+              <span
+                onClick={togglePasswordVisibility}
+                className="absolute right-3 top-3 cursor-pointer text-gray-700"
               >
-                <option value="">Selecciona una Radio</option>
-                {radios.map((radio) => (
-                  <option key={radio.id} value={radio.id}>
-                    {radio.nombre}
-                  </option>
-                ))}
-              </select>
-              <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600">
-                Guardar
-              </button>
-            </form>
-          </div>
-          <div className="col">
-            {/* Formulario para actualizar */}
-            <form className="bg-secondary p-10 rounded-lg shadow-lg mb-8" onSubmit={handleEditSubmit}>
-              <h2 className="text-2xl mb-4 font-semibold-important text-white text-center">Actualizar Usuario</h2>
+                {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+            <div className="relative mb-4">
               <input
-                type="text"
-                placeholder="Nombre del Usuario"
-                value={editingFields.nombre}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setEditingFields({ ...editingFields, nombre: e.target.value })}
+                type={confirmPasswordVisible ? "text" : "password"}
+                placeholder="Confirmar Contraseña"
+                value={confirmPassword}
+                className="block py-2 px-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
-              <input
-                type="text"
-                placeholder="Correo del Usuario"
-                value={editingFields.correo}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setEditingFields({ ...editingFields, correo: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="Teléfono del Usuario"
-                value={editingFields.telefono}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setEditingFields({ ...editingFields, telefono: e.target.value })}
-              />
-              <div className="relative">
-                <input
-                  type={editingPasswordVisible ? "text" : "password"}
-                  placeholder="Contraseña"
-                  value={editingFields.password}
-                  className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                  onChange={(e) => setEditingFields({ ...editingFields, password: e.target.value })}
-                />
-                <span
-                  onClick={toggleEditingPasswordVisibility}
-                  className="absolute right-3 top-3 cursor-pointer"
-                >
-                  {editingPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-              <div className="relative">
-                <input
-                  type={editingConfirmPasswordVisible ? "text" : "password"}
-                  placeholder="Confirmar Contraseña"
-                  value={editingFields.confirmPassword}
-                  className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                  onChange={(e) => setEditingFields({ ...editingFields, confirmPassword: e.target.value })}
-                />
-                <span
-                  onClick={toggleEditingConfirmPasswordVisibility}
-                  className="absolute right-3 top-3 cursor-pointer"
-                >
-                  {editingConfirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-              <select
-                value={editingFields.fkRadio}
-                onChange={(e) => setEditingFields({ ...editingFields, fkRadio: e.target.value })}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
+              <span
+                onClick={toggleConfirmPasswordVisibility}
+                className="absolute right-3 top-3 cursor-pointer text-gray-700"
               >
-                <option value="">Selecciona una Radio</option>
-                {radios.map((radio) => (
-                  <option key={radio.id} value={radio.id}>
-                    {radio.nombre}
-                  </option>
-                ))}
-              </select>
-              <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600">
-                Actualizar
-              </button>
-            </form>
-          </div>    
+                {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+            <select
+              value={fkRadio}
+              onChange={(e) => setFkRadio(e.target.value)}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            >
+              <option value="">Selecciona una Radio</option>
+              {radios.map((radio) => (
+                <option key={radio.id} value={radio.id}>
+                  {radio.nombre}
+                </option>
+              ))}
+            </select>
+            <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600 transition duration-300">
+              Guardar
+            </button>
+          </form>
+
+          {/* Formulario para actualizar un usuario existente */}
+          <form className="bg-white p-6 rounded-lg shadow-md mb-8 w-full lg:w-1/2" onSubmit={handleEditSubmit}>
+            <h2 className="text-2xl mb-4 font-semibold text-gray-800 text-center">Actualizar Usuario</h2>
+            <input
+              type="text"
+              placeholder="Nombre del Usuario"
+              value={editingFields.nombre}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setEditingFields({ ...editingFields, nombre: e.target.value })}
+            />
+            <input
+              type="text"
+              placeholder="Correo del Usuario"
+              value={editingFields.correo}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setEditingFields({ ...editingFields, correo: e.target.value })}
+            />
+            <input
+              type="text"
+              placeholder="Teléfono del Usuario"
+              value={editingFields.telefono}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setEditingFields({ ...editingFields, telefono: e.target.value })}
+            />
+            <div className="relative mb-4">
+              <input
+                type={editingPasswordVisible ? "text" : "password"}
+                placeholder="Contraseña"
+                value={editingFields.password}
+                className="block py-2 px-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                onChange={(e) => setEditingFields({ ...editingFields, password: e.target.value })}
+              />
+              <span
+                onClick={toggleEditingPasswordVisibility}
+                className="absolute right-3 top-3 cursor-pointer text-gray-700"
+              >
+                {editingPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+            <div className="relative mb-4">
+              <input
+                type={editingConfirmPasswordVisible ? "text" : "password"}
+                placeholder="Confirmar Contraseña"
+                value={editingFields.confirmPassword}
+                className="block py-2 px-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                onChange={(e) => setEditingFields({ ...editingFields, confirmPassword: e.target.value })}
+              />
+              <span
+                onClick={toggleEditingConfirmPasswordVisibility}
+                className="absolute right-3 top-3 cursor-pointer text-gray-700"
+              >
+                {editingConfirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+            <select
+              value={editingFields.fkRadio}
+              onChange={(e) => setEditingFields({ ...editingFields, fkRadio: e.target.value })}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            >
+              <option value="">Selecciona una Radio</option>
+              {radios.map((radio) => (
+                <option key={radio.id} value={radio.id}>
+                  {radio.nombre}
+                </option>
+              ))}
+            </select>
+            <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600 transition duration-300">
+              Actualizar
+            </button>
+          </form>
         </div>
       </div>
 
-      <div className="container">
+      <div className="px-4 md:px-8 lg:px-16">
         <div className="mt-8 w-full">
           <h2 className="text-3xl mb-4 font-bold text-gray-800 text-center">Lista de Usuarios</h2>
           <div className="overflow-x-auto">
-            <table className="min-w-full bg-white">
+            <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
               <thead>
                 <tr>
                   <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">ID</th>
-                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-600">Nombre</th>
-                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-600">Correo</th>
-                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-600">Teléfono</th>
-                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-600">Radio</th>
-                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-600">Acciones</th>
+                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">Nombre</th>
+                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">Correo</th>
+                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">Teléfono</th>
+                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">Radio</th>
+                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -317,18 +313,16 @@ function Usuario() {
                       {radios.find(radio => radio.id === usuario.fk_radio)?.nombre}
                     </td>
                     <td className="py-2 px-4 border-b border-gray-200 text-gray-800 text-center">
-                      <div className="pb-2">
+                      <div className="flex flex-col space-y-2">
                         <button
                           onClick={() => handleEdit(usuario)}
-                          className="mr-2 py-1 px-3 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+                          className="py-1 px-3 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition duration-300"
                         >
                           Editar
                         </button>
-                      </div>
-                      <div className="pb-2">
                         <button
                           onClick={() => handleDelete(usuario.id_usuario)}
-                          className="py-1 px-3 bg-red-500 text-white font-semibold rounded hover:bg-red-600"
+                          className="py-1 px-3 bg-red-500 text-white font-semibold rounded hover:bg-red-600 transition duration-300"
                         >
                           Eliminar
                         </button>
@@ -342,7 +336,7 @@ function Usuario() {
         </div>
       </div>
 
-      <footer className="mt-8 text-gray-600 text-center w-full">
+      <footer className="mt-8 text-gray-600 text-center w-full py-4">
         <p>Derechos de Autor Reservados.</p>
         <p>Implementado por Dev Andres Ragua.</p>
       </footer>

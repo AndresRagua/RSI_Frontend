@@ -5,7 +5,6 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-
 function Administrador() {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -126,144 +125,141 @@ function Administrador() {
   };
 
   return (
-    <div className="flex flex-col bg-gray-200">
+    <div className="flex flex-col bg-gray-100 min-h-screen">
       {/* Navbar */}
       <AdminNavBar />
 
-      <header className="mt-3 pt-5 pb-5 text-3xl font-bold text-gray-800 text-center">
+      <header className="mt-4 py-5 text-3xl font-bold text-gray-800 text-center">
         Administrar Administradores
       </header>
 
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            {/* Formulario para agregar */}
-            <form className="bg-secondary p-10 rounded-lg shadow-lg mb-8" onSubmit={handleAddSubmit}>
-              <h2 className="text-2xl mb-4 font-semibold-important text-white text-center">Agregar Administrador</h2>
+      <div className="px-4 md:px-8 lg:px-16">
+        <div className="flex flex-col lg:flex-row lg:space-x-8">
+          {/* Formulario para agregar un nuevo administrador */}
+          <form className="bg-white p-6 rounded-lg shadow-md mb-8 w-full lg:w-1/2" onSubmit={handleAddSubmit}>
+            <h2 className="text-2xl mb-4 font-semibold text-gray-800 text-center">Agregar Administrador</h2>
+            <input
+              type="text"
+              placeholder="Nombre del Administrador"
+              value={nombre}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setNombre(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Apellido del Administrador"
+              value={apellido}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setApellido(e.target.value)}
+            />
+            <input
+              type="email"
+              placeholder="Correo del Administrador"
+              value={email}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <div className="relative">
               <input
-                type="text"
-                placeholder="Nombre del Administrador"
-                value={nombre}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setNombre(e.target.value)}
+                type={passwordVisible ? "text" : "password"}
+                placeholder="Contraseña"
+                value={password}
+                className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                onChange={(e) => setPassword(e.target.value)}
               />
+              <span
+                onClick={togglePasswordVisibility}
+                className="absolute right-3 top-3 cursor-pointer text-gray-500"
+              >
+                {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+            <div className="relative">
               <input
-                type="text"
-                placeholder="Apellido del Administrador"
-                value={apellido}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setApellido(e.target.value)}
+                type={confirmPasswordVisible ? "text" : "password"}
+                placeholder="Confirmar Contraseña"
+                value={confirmPassword}
+                className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
+              <span
+                onClick={toggleConfirmPasswordVisibility}
+                className="absolute right-3 top-3 cursor-pointer text-gray-500"
+              >
+                {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+            <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600 transition duration-300">
+              Guardar
+            </button>
+          </form>
+
+          {/* Formulario para actualizar un administrador existente */}
+          <form className="bg-white p-6 rounded-lg shadow-md mb-8 w-full lg:w-1/2" onSubmit={handleEditSubmit}>
+            <h2 className="text-2xl mb-4 font-semibold text-gray-800 text-center">Actualizar Administrador</h2>
+            <input
+              type="text"
+              placeholder="Nombre del Administrador"
+              value={editingFields.nombre}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setEditingFields({ ...editingFields, nombre: e.target.value })}
+            />
+            <input
+              type="text"
+              placeholder="Apellido del Administrador"
+              value={editingFields.apellido}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setEditingFields({ ...editingFields, apellido: e.target.value })}
+            />
+            <input
+              type="email"
+              placeholder="Correo del Administrador"
+              value={editingFields.email}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setEditingFields({ ...editingFields, email: e.target.value })}
+            />
+            <div className="relative">
               <input
-                type="email"
-                placeholder="Correo del Administrador"
-                value={email}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setEmail(e.target.value)}
+                type={editingPasswordVisible ? "text" : "password"}
+                placeholder="Contraseña"
+                value={editingFields.password}
+                className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                onChange={(e) => setEditingFields({ ...editingFields, password: e.target.value })}
               />
-              <div className="relative">
-                <input
-                  type={passwordVisible ? "text" : "password"}
-                  placeholder="Contraseña"
-                  value={password}
-                  className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <span
-                  onClick={togglePasswordVisibility}
-                  className="absolute right-3 top-3 cursor-pointer"
-                >
-                  {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-              <div className="relative">
-                <input
-                  type={confirmPasswordVisible ? "text" : "password"}
-                  placeholder="Confirmar Contraseña"
-                  value={confirmPassword}
-                  className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-                <span
-                  onClick={toggleConfirmPasswordVisibility}
-                  className="absolute right-3 top-3 cursor-pointer"
-                >
-                  {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-              <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600">
-                Guardar
-              </button>
-            </form>
-          </div>
-          <div className="col">
-            {/* Formulario para actualizar */}
-            <form className="bg-secondary p-10 rounded-lg shadow-lg mb-8" onSubmit={handleEditSubmit}>
-              <h2 className="text-2xl mb-4 font-semibold-important text-white text-center">Actualizar Administrador</h2>
+              <span
+                onClick={toggleEditingPasswordVisibility}
+                className="absolute right-3 top-3 cursor-pointer text-gray-500"
+              >
+                {editingPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+            <div className="relative">
               <input
-                type="text"
-                placeholder="Nombre del Administrador"
-                value={editingFields.nombre}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setEditingFields({ ...editingFields, nombre: e.target.value })}
+                type={editingConfirmPasswordVisible ? "text" : "password"}
+                placeholder="Confirmar Contraseña"
+                value={editingFields.confirmPassword}
+                className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                onChange={(e) => setEditingFields({ ...editingFields, confirmPassword: e.target.value })}
               />
-              <input
-                type="text"
-                placeholder="Apellido del Administrador"
-                value={editingFields.apellido}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setEditingFields({ ...editingFields, apellido: e.target.value })}
-              />
-              <input
-                type="email"
-                placeholder="Correo del Administrador"
-                value={editingFields.email}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setEditingFields({ ...editingFields, email: e.target.value })}
-              />
-              <div className="relative">
-                <input
-                  type={editingPasswordVisible ? "text" : "password"}
-                  placeholder="Contraseña"
-                  value={editingFields.password}
-                  className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                  onChange={(e) => setEditingFields({ ...editingFields, password: e.target.value })}
-                />
-                <span
-                  onClick={toggleEditingPasswordVisibility}
-                  className="absolute right-3 top-3 cursor-pointer"
-                >
-                  {editingPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-              <div className="relative">
-                <input
-                  type={editingConfirmPasswordVisible ? "text" : "password"}
-                  placeholder="Confirmar Contraseña"
-                  value={editingFields.confirmPassword}
-                  className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                  onChange={(e) => setEditingFields({ ...editingFields, confirmPassword: e.target.value })}
-                />
-                <span
-                  onClick={toggleEditingConfirmPasswordVisibility}
-                  className="absolute right-3 top-3 cursor-pointer"
-                >
-                  {editingConfirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-              <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600">
-                Actualizar
-              </button>
-            </form>
-          </div>    
+              <span
+                onClick={toggleEditingConfirmPasswordVisibility}
+                className="absolute right-3 top-3 cursor-pointer text-gray-500"
+              >
+                {editingConfirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+            <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600 transition duration-300">
+              Actualizar
+            </button>
+          </form>
         </div>
       </div>
 
-      <div className="container">
+      <div className="px-4 md:px-8 lg:px-16">
         <div className="mt-8 w-full">
           <h2 className="text-3xl mb-4 font-bold text-gray-800 text-center">Lista de Administradores</h2>
           <div className="overflow-x-auto">
-            <table className="min-w-full bg-white">
+            <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
               <thead>
                 <tr>
                   <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">ID</th>
@@ -281,18 +277,16 @@ function Administrador() {
                     <td className="py-2 px-4 border-b text-center border-gray-200 text-gray-800">{administrador.apellido}</td>
                     <td className="py-2 px-4 border-b text-center border-gray-200 text-gray-800">{administrador.email}</td>
                     <td className="py-2 px-4 border-b border-gray-200 text-gray-800 text-center">
-                      <div className="pb-2">
+                      <div className="flex flex-col space-y-2">
                         <button
                           onClick={() => handleEdit(administrador)}
-                          className="mr-2 py-1 px-3 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+                          className="py-1 px-3 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition duration-300"
                         >
                           Editar
                         </button>
-                      </div>
-                      <div className="pb-2">
                         <button
                           onClick={() => handleDelete(administrador.id_administrador)}
-                          className="py-1 px-3 bg-red-500 text-white font-semibold rounded hover:bg-red-600"
+                          className="py-1 px-3 bg-red-500 text-white font-semibold rounded hover:bg-red-600 transition duration-300"
                         >
                           Eliminar
                         </button>
@@ -306,7 +300,7 @@ function Administrador() {
         </div>
       </div>
 
-      <footer className="mt-8 text-gray-600 text-center w-full">
+      <footer className="mt-8 text-gray-600 text-center w-full py-4">
         <p>Derechos de Autor Reservados.</p>
         <p>Implementado por Dev Andres Ragua.</p>
       </footer>

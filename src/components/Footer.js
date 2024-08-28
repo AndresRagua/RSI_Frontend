@@ -10,13 +10,13 @@ const Footer = () => {
             Copyright &copy; Radio Songs International 2024
           </Col>
           <Col lg="4" className="my-3 my-lg-0 text-center">
-            <a className="btn btn-light btn-social mx-2" href="#!" aria-label="Twitter">
+            <a className="btn btn-light btn-social mx-2" href="https://x.com/rs_television" aria-label="Twitter">
               <i className="fab fa-twitter"></i>
             </a>
-            <a className="btn btn-light btn-social mx-2" href="#!" aria-label="Facebook">
+            <a className="btn btn-light btn-social mx-2" href="/" aria-label="Facebook">
               <i className="fab fa-facebook-f"></i>
             </a>
-            <a className="btn btn-light btn-social mx-2" href="#!" aria-label="Instagram">
+            <a className="btn btn-light btn-social mx-2" href="https://www.instagram.com/rs_television/" aria-label="Instagram">
               <i className="fab fa-instagram"></i>
             </a>
           </Col>

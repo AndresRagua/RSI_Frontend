@@ -117,53 +117,101 @@ function Programa() {
   };
 
   return (
-    <div className="flex flex-col bg-gray-200">
+    <div className="flex flex-col bg-gray-100 min-h-screen">
       
       {/* Navbar */}
       <AdminNavBar />
       
-      <header className="mt-3 pt-5 pb-5 text-3xl font-bold text-gray-800 text-center">
+      <header className="mt-4 py-5 text-3xl font-bold text-gray-800 text-center">
         Administrar Programas
       </header>
 
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            {/* Formulario para agregar un nuevo programa */}
-            <form className="bg-secondary p-10 rounded-lg shadow-lg mb-8" onSubmit={handleAddSubmit}>
-              <h2 className="text-2xl mb-4 font-semibold-important text-white text-center">Agregar Programa</h2>
-              <input
-                type="text"
-                placeholder="Nombre del Programa"
-                value={nombre}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setNombre(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Nombre del Conductor"
-                value={nombreConductor}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setNombreConductor(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Certificado de Locución"
-                value={certificadoLocucion}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setCertificadoLocucion(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="URL del Banner"
-                value={urlBanner}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setUrlBanner(e.target.value)}
-              />
+      <div className="px-4 md:px-8 lg:px-16">
+        <div className="flex flex-col lg:flex-row lg:space-x-8">
+          {/* Formulario para agregar un nuevo programa */}
+          <form className="bg-white p-6 rounded-lg shadow-md mb-8 w-full lg:w-1/2" onSubmit={handleAddSubmit}>
+            <h2 className="text-2xl mb-4 font-semibold text-gray-800 text-center">Agregar Programa</h2>
+            <input
+              type="text"
+              placeholder="Nombre del Programa"
+              value={nombre}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setNombre(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Nombre del Conductor"
+              value={nombreConductor}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setNombreConductor(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Certificado de Locución"
+              value={certificadoLocucion}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setCertificadoLocucion(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="URL del Banner"
+              value={urlBanner}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setUrlBanner(e.target.value)}
+            />
+            <select
+              value={fkRadio}
+              onChange={(e) => setFkRadio(e.target.value)}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            >
+              <option value="">Selecciona una Radio</option>
+              {radios.map((radio) => (
+                <option key={radio.id} value={radio.id}>
+                  {radio.nombre}
+                </option>
+              ))}
+            </select>
+            <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600 transition duration-300">
+              Guardar
+            </button>
+          </form>
+
+          {/* Formulario para actualizar un programa existente */}
+          <form className="bg-white p-6 rounded-lg shadow-md mb-8 w-full lg:w-1/2" onSubmit={handleEditSubmit}>
+            <h2 className="text-2xl mb-4 font-semibold text-gray-800 text-center">Actualizar Programa</h2>
+            <input
+              type="text"
+              placeholder="Nombre del Programa"
+              value={editingFields.nombre}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setEditingFields({ ...editingFields, nombre: e.target.value })}
+            />
+            <input
+              type="text"
+              placeholder="Nombre del Conductor"
+              value={editingFields.nombreConductor}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setEditingFields({ ...editingFields, nombreConductor: e.target.value })}
+            />
+            <input
+              type="text"
+              placeholder="Certificado de Locución"
+              value={editingFields.certificadoLocucion}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setEditingFields({ ...editingFields, certificadoLocucion: e.target.value })}
+            />
+            <input
+              type="text"
+              placeholder="URL del Banner"
+              value={editingFields.urlBanner}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setEditingFields({ ...editingFields, urlBanner: e.target.value })}
+            />
+            {showRadioDropdown && (
               <select
-                value={fkRadio}
-                onChange={(e) => setFkRadio(e.target.value)}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
+                value={editingFields.fkRadio}
+                onChange={(e) => setEditingFields({ ...editingFields, fkRadio: e.target.value })}
+                className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
               >
                 <option value="">Selecciona una Radio</option>
                 {radios.map((radio) => (
@@ -172,78 +220,27 @@ function Programa() {
                   </option>
                 ))}
               </select>
-              <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600">
-                Guardar
-              </button>
-            </form>
-          </div>
-          <div className="col">
-            {/* Formulario para actualizar un programa existente */}
-            <form className="bg-secondary p-10 rounded-lg shadow-lg mb-8" onSubmit={handleEditSubmit}>
-              <h2 className="text-2xl mb-4 font-semibold-important text-white text-center">Actualizar Programa</h2>
-              <input
-                type="text"
-                placeholder="Nombre del Programa"
-                value={editingFields.nombre}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setEditingFields({ ...editingFields, nombre: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="Nombre del Conductor"
-                value={editingFields.nombreConductor}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setEditingFields({ ...editingFields, nombreConductor: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="Certificado de Locución"
-                value={editingFields.certificadoLocucion}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setEditingFields({ ...editingFields, certificadoLocucion: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="URL del Banner"
-                value={editingFields.urlBanner}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setEditingFields({ ...editingFields, urlBanner: e.target.value })}
-              />
-              {showRadioDropdown && (
-                <select
-                  value={editingFields.fkRadio}
-                  onChange={(e) => setEditingFields({ ...editingFields, fkRadio: e.target.value })}
-                  className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                >
-                  <option value="">Selecciona una Radio</option>
-                  {radios.map((radio) => (
-                    <option key={radio.id} value={radio.id}>
-                      {radio.nombre}
-                    </option>
-                  ))}
-                </select>
-              )}
-              <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600">
-                Actualizar
-              </button>
-            </form>
-          </div>    
+            )}
+            <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600 transition duration-300">
+              Actualizar
+            </button>
+          </form>
         </div>
       </div>
 
-      <div className="container">
+      <div className="px-4 md:px-8 lg:px-16">
         <div className="mt-8 w-full">
           <h2 className="text-3xl mb-4 font-bold text-gray-800 text-center">Lista de Programas</h2>
           <div className="overflow-x-auto">
-            <table className="min-w-full bg-white">
+            <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
               <thead>
                 <tr>
                   <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">ID</th>
-                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-600">Nombre del Programa</th>
-                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-600">Nombre del Conductor</th>
-                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-600">Certificado de Locución</th>
-                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-600">Banner</th>
-                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-600">Acciones</th>
+                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">Nombre del Programa</th>
+                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">Nombre del Conductor</th>
+                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">Certificado de Locución</th>
+                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">Banner</th>
+                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -254,13 +251,13 @@ function Programa() {
                     <td className="py-2 px-4 border-b text-center border-gray-200 text-gray-800">{programa.nombre_conductor}</td>
                     <td className="py-2 px-4 border-b text-center border-gray-200 text-gray-800">{programa.certificado_locucion}</td>
                     <td className="py-2 px-4 border-b text-center border-gray-200 text-gray-800">
-                      <img src={transformDropboxUrl(programa.url_banner)} alt="Banner" className="w-40 h-24 object-cover rounded" />
+                      <img src={transformDropboxUrl(programa.url_banner)} alt="Banner" className="w-32 h-20 object-cover rounded-md mx-auto" />
                     </td>
                     <td className="py-2 px-4 border-b border-gray-200 text-gray-800 text-center">
                       <div className="pb-2">
                         <button
                           onClick={() => handleEdit(programa)}
-                          className="mr-2 py-1 px-3 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+                          className="mr-2 py-1 px-3 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition duration-300"
                         >
                           Editar
                         </button>
@@ -268,7 +265,7 @@ function Programa() {
                       <div className="pb-2">
                         <button
                           onClick={() => handleDelete(programa.id_programa)}
-                          className="py-1 px-3 bg-red-500 text-white font-semibold rounded hover:bg-red-600"
+                          className="py-1 px-3 bg-red-500 text-white font-semibold rounded hover:bg-red-600 transition duration-300"
                         >
                           Eliminar
                         </button>
@@ -282,7 +279,7 @@ function Programa() {
         </div>
       </div>
 
-      <footer className="mt-8 text-gray-600 text-center w-full">
+      <footer className="mt-8 text-gray-600 text-center w-full py-4">
         <p>Derechos de Autor Reservados.</p>
         <p>Implementado por Dev Andres Ragua.</p>
       </footer>

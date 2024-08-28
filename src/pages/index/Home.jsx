@@ -38,7 +38,6 @@ const groupProgramacionesByMonthAndYear = (programaciones) => {
     grouped[year][month].push(programacion);
   });
 
-  // Ordenar los años y los meses correctamente en orden descendente
   const sortedGrouped = {};
   Object.keys(grouped).sort((a, b) => b - a).forEach(year => {
     sortedGrouped[year] = {};
@@ -51,7 +50,6 @@ const groupProgramacionesByMonthAndYear = (programaciones) => {
 
   return sortedGrouped;
 };
-
 
 function Home() {
   const [serviciosSociales, setServiciosSociales] = useState([]);
@@ -83,7 +81,12 @@ function Home() {
     try {
       const res = await axios.get(`${API_URL}/radio/obtener`);
       setRadios(res.data);
-      if (res.data.length > 0) {
+      const savedRadio = localStorage.getItem('selectedRadio');
+      if (savedRadio) {
+        setSelectedRadio(parseInt(savedRadio));
+        const radioDetails = res.data.find(radio => radio.id === parseInt(savedRadio));
+        setSelectedRadioDetails(radioDetails);
+      } else if (res.data.length > 0) {
         setSelectedRadio(res.data[0].id);
         setSelectedRadioDetails(res.data[0]);
       }
@@ -124,8 +127,6 @@ function Home() {
     }
   };
 
-
-
   const fetchArtistas = async (radioId) => {
     try {
       const res = await axios.get(`${API_URL}/artista/`);
@@ -140,6 +141,7 @@ function Home() {
     setSelectedRadio(radioId);
     const radioDetails = radios.find(radio => radio.id === radioId);
     setSelectedRadioDetails(radioDetails);
+    localStorage.setItem('selectedRadio', radioId);
   };
 
   const getRadioName = (id) => {
@@ -147,12 +149,11 @@ function Home() {
     return radio ? radio.nombre : 'Radio';
   };
 
-  // Función para manejar el clic en "Ver más"
   const handleVerMas = (id) => {
     if (expandedService === id) {
-      setExpandedService(null);  // Colapsar el texto si se hace clic de nuevo
+      setExpandedService(null);
     } else {
-      setExpandedService(id);  // Expandir el texto
+      setExpandedService(id);
     }
   };
 
@@ -160,7 +161,6 @@ function Home() {
     setExpandedArtist(expandedArtist === id_artista ? null : id_artista);
   };
 
-  // Función para manejar el toggle del dropdown
   const handleToggleDropdown = (id_programa) => {
     setOpenDropdown(openDropdown === id_programa ? null : id_programa);
   };
@@ -171,10 +171,10 @@ function Home() {
 
   return (
     <div className="flex flex-col bg-gray-200" id='page-top'>
-      {/* Navbar */}
+      {/* NAVBAR */}
       <NavBarPublic selectedRadio={selectedRadio} setSelectedRadio={handleRadioChange} radios={radios} />
 
-      {/* Carrusel de fotos */}
+      {/* RADIO */}
       {selectedRadioDetails && (
         <Carousel interval={null}>
           {selectedRadioDetails.url_primer_fondo && (
@@ -229,8 +229,7 @@ function Home() {
         </Carousel>
       )}
 
-
-
+      {/* SERVICIOS SOCIALES */}
       <section className="bg-light py-12" id="servicios">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
@@ -242,8 +241,7 @@ function Home() {
               'sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
             }`}>
             {serviciosSociales.map((servicio) => {
-              const isOpen = openAudioDropdown === servicio.id_servicio; // Verificar si el dropdown está abierto para este servicio
-
+              const isOpen = openAudioDropdown === servicio.id_servicio;
               return (
                 <div
                   key={servicio.id_servicio}
@@ -251,7 +249,6 @@ function Home() {
                 >
                   <div className="flex flex-col h-full justify-between">
                     <div className="text-center p-4">
-                      {/* Contenedor para imagen redondeada */}
                       <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border border-black flex items-center justify-center bg-white">
                         <img className="w-full h-full object-contain" src={transformDropboxUrl(servicio.url_image)} alt={`Imagen de ${servicio.nombre}`} />
                       </div>
@@ -271,7 +268,6 @@ function Home() {
                       </a>
                       {servicio.tipo === 'audio' && (
                         <div className="mt-4 relative">
-                          {/* Botón para abrir/cerrar el dropdown */}
                           <button
                             className="block w-full text-center text-white bg-warning rounded-lg py-2 mb-2"
                             type="button"
@@ -279,7 +275,6 @@ function Home() {
                           >
                             {servicio.nombre_audios}
                           </button>
-                          {/* Dropdown contenido */}
                           {isOpen && (
                             <div className="absolute left-0 right-0 bottom-full mb-2 bg-white rounded-lg shadow-lg p-4 text-left max-h-64 overflow-y-auto z-20">
                               {servicio.audios_servicio.map((audio) => (
@@ -287,7 +282,7 @@ function Home() {
                                   <div className="bg-blue-400 text-white px-4 rounded-md mb-2">
                                     <h3 className="text-lg font-bold">{audio.nombre}</h3>
                                   </div>
-                                  <audio className="w-full mt-1" controls preload="none">
+                                  <audio className="w-full mt-1 border-b border-gray-300 pb-2" controls preload="none">
                                     <source src={transformDropboxUrl(audio.url_audio)} type="audio/mpeg" />
                                   </audio>
                                 </div>
@@ -305,17 +300,7 @@ function Home() {
         </div>
       </section>
 
-
-
-
-
-
-
-
-
-
-
-      {/* SECCION PARA LA PUBLICIDAD */}
+      {/* PUBLICIDAD */}
       {selectedRadio && publicidades.length > 0 && (
         <section className="bg-secondary py-12" id="publicidades">
           <div className="container mx-auto px-4">
@@ -336,7 +321,6 @@ function Home() {
                   <div className="p-4 text-center flex flex-col justify-between flex-grow">
                     <div>
                       <h4 className="text-xl font-semibold text-gray-800">{publicidad.nombre}</h4>
-                      {/* Condicional para mostrar más o menos texto */}
                       <p className={`text-gray-600 mt-2 ${expandedService === publicidad.id_publicidad ? '' : 'line-clamp-3'}`}>
                         {publicidad.informacion}
                       </p>
@@ -359,10 +343,9 @@ function Home() {
         </section>
       )}
 
-
-      {/* SECCION PARA LOS PROGRAMAS Y PROGRAMACIONES */}
+      {/* PROGRAMAS Y PROGRAMACIONES */}
       {selectedRadio && programas.length > 0 && (
-        <section className="bg-light py-12">
+        <section className="bg-light py-12" id='programas'>
           <div className="container mx-auto px-4">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-black uppercase">PROGRAMAS</h2>
@@ -382,7 +365,6 @@ function Home() {
                     key={programa.id_programa}
                     className={`relative bg-white rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out max-w-xs w-full mx-auto ${isOpen ? 'h-auto' : 'h-full max-h-[450px]'}`}
                   >
-                    {/* Contenedor de la imagen */}
                     <div className="w-full h-48 overflow-hidden rounded-t-lg flex items-center justify-center">
                       <img className="max-w-full max-h-full object-contain" src={transformDropboxUrl(programa.url_banner)} alt={`Imagen de ${programa.nombre}`} />
                     </div>
@@ -391,11 +373,9 @@ function Home() {
                       <p className="text-gray-600 mt-2"><b>Conductor:</b> {programa.nombre_conductor}</p>
                       <p className="text-gray-600 mt-2"><b>Certificado de Locución:</b> {programa.certificado_locucion}</p>
                       <div className="relative mt-4">
-                        {/* Botón para abrir/cerrar el dropdown */}
                         <button className="block w-full text-center text-white bg-warning rounded-lg py-2" type="button" onClick={() => handleToggleDropdown(programa.id_programa)}>
                           Programación
                         </button>
-                        {/* Dropdown contenido */}
                         {isOpen && (
                           <div className="mt-2 bg-white rounded-lg shadow-lg p-4 text-left max-h-64 overflow-y-auto">
                             {Object.keys(programacionesAgrupadas).length > 0 ? (
@@ -442,12 +422,7 @@ function Home() {
         </section>
       )}
 
-
-
-
-
-
-      {/* SECCION PARA LOS ARTISTAS INVITADOS */}
+      {/* ARTISTAS INVITADOS */}
       {selectedRadio && artistas.length > 0 && (
         <section className="bg-secondary py-8" id="artistas">
           <div className="container mx-auto px-4">
@@ -475,7 +450,6 @@ function Home() {
                   <div className="p-4 text-center flex flex-col justify-between h-full">
                     <div>
                       <h4 className="text-xl font-semibold text-gray-800">{artista.nombre}</h4>
-                      {/* Limitar el texto de información */}
                       <p className={`text-gray-600 mt-2 ${expandedArtist === artista.id_artista ? '' : 'line-clamp-3'}`}>
                         {artista.informacion}
                       </p>
@@ -493,9 +467,7 @@ function Home() {
         </section>
       )}
 
-
-
-      {/* SECCION PARA CONTACTO */}
+      {/* CONTACTO */}
       <section className="bg-black py-16" id="contact">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">

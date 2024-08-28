@@ -98,116 +98,113 @@ function HiloMusical() {
   };
 
   return (
-    <div className="flex flex-col bg-gray-200">
+    <div className="flex flex-col bg-gray-100 min-h-screen">
       {/* Navbar */}
       <AdminNavBar />
 
-      <header className="mt-3 pt-5 pb-5 text-3xl font-bold text-gray-800 text-center">
+      <header className="mt-4 py-5 text-3xl font-bold text-gray-800 text-center">
         Administrar Hilos Musicales
       </header>
 
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            {/* Formulario para agregar */}
-            <form className="bg-secondary p-10 rounded-lg shadow-lg mb-8" onSubmit={handleAddSubmit}>
-              <h2 className="text-2xl mb-4 font-semibold-important text-white text-center">Agregar Hilo Musical</h2>
-              <input
-                type="text"
-                placeholder="Nombre del Hilo Musical"
-                value={nombre}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setNombre(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="URL del Musical"
-                value={urlMusical}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setUrlMusical(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="URL de la Imagen"
-                value={urlImage}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setUrlImage(e.target.value)}
-              />
-              <select
-                value={fkUsuario}
-                onChange={(e) => setFkUsuario(e.target.value)}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-              >
-                <option value="">Selecciona un Usuario</option>
-                {usuarios.map((usuario) => (
-                  <option key={usuario.id_usuario} value={usuario.id_usuario}>
-                    {usuario.nombre}
-                  </option>
-                ))}
-              </select>
-              <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600">
-                Guardar
-              </button>
-            </form>
-          </div>
-          <div className="col">
-            {/* Formulario para actualizar */}
-            <form className="bg-secondary p-10 rounded-lg shadow-lg mb-8" onSubmit={handleEditSubmit}>
-              <h2 className="text-2xl mb-4 font-semibold-important text-white text-center">Actualizar Hilo Musical</h2>
-              <input
-                type="text"
-                placeholder="Nombre del Hilo Musical"
-                value={editingFields.nombre}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setEditingFields({ ...editingFields, nombre: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="URL del Musical"
-                value={editingFields.urlMusical}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setEditingFields({ ...editingFields, urlMusical: e.target.value })}
-              />
-              <input
-                type="text"
-                placeholder="URL de la Imagen"
-                value={editingFields.urlImage}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-                onChange={(e) => setEditingFields({ ...editingFields, urlImage: e.target.value })}
-              />
-              <select
-                value={editingFields.fkUsuario}
-                onChange={(e) => setEditingFields({ ...editingFields, fkUsuario: e.target.value })}
-                className="block py-2 px-3 mb-4 w-full text-black rounded border-2 border-yellow-300"
-              >
-                <option value="">Selecciona un Usuario</option>
-                {usuarios.map((usuario) => (
-                  <option key={usuario.id_usuario} value={usuario.id_usuario}>
-                    {usuario.nombre}
-                  </option>
-                ))}
-              </select>
-              <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600">
-                Actualizar
-              </button>
-            </form>
-          </div>    
+      <div className="px-4 md:px-8 lg:px-16">
+        <div className="flex flex-col lg:flex-row lg:space-x-8">
+          {/* Formulario para agregar un nuevo hilo musical */}
+          <form className="bg-white p-6 rounded-lg shadow-md mb-8 w-full lg:w-1/2" onSubmit={handleAddSubmit}>
+            <h2 className="text-2xl mb-4 font-semibold text-gray-800 text-center">Agregar Hilo Musical</h2>
+            <input
+              type="text"
+              placeholder="Nombre del Hilo Musical"
+              value={nombre}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setNombre(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="URL del Musical"
+              value={urlMusical}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setUrlMusical(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="URL de la Imagen"
+              value={urlImage}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setUrlImage(e.target.value)}
+            />
+            <select
+              value={fkUsuario}
+              onChange={(e) => setFkUsuario(e.target.value)}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            >
+              <option value="">Selecciona un Usuario</option>
+              {usuarios.map((usuario) => (
+                <option key={usuario.id_usuario} value={usuario.id_usuario}>
+                  {usuario.nombre}
+                </option>
+              ))}
+            </select>
+            <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600 transition duration-300">
+              Guardar
+            </button>
+          </form>
+
+          {/* Formulario para actualizar un hilo musical existente */}
+          <form className="bg-white p-6 rounded-lg shadow-md mb-8 w-full lg:w-1/2" onSubmit={handleEditSubmit}>
+            <h2 className="text-2xl mb-4 font-semibold text-gray-800 text-center">Actualizar Hilo Musical</h2>
+            <input
+              type="text"
+              placeholder="Nombre del Hilo Musical"
+              value={editingFields.nombre}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setEditingFields({ ...editingFields, nombre: e.target.value })}
+            />
+            <input
+              type="text"
+              placeholder="URL del Musical"
+              value={editingFields.urlMusical}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setEditingFields({ ...editingFields, urlMusical: e.target.value })}
+            />
+            <input
+              type="text"
+              placeholder="URL de la Imagen"
+              value={editingFields.urlImage}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              onChange={(e) => setEditingFields({ ...editingFields, urlImage: e.target.value })}
+            />
+            <select
+              value={editingFields.fkUsuario}
+              onChange={(e) => setEditingFields({ ...editingFields, fkUsuario: e.target.value })}
+              className="block py-2 px-4 mb-4 w-full text-gray-700 border rounded border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            >
+              <option value="">Selecciona un Usuario</option>
+              {usuarios.map((usuario) => (
+                <option key={usuario.id_usuario} value={usuario.id_usuario}>
+                  {usuario.nombre}
+                </option>
+              ))}
+            </select>
+            <button className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600 transition duration-300">
+              Actualizar
+            </button>
+          </form>
         </div>
       </div>
 
-      <div className="container">
+      <div className="px-4 md:px-8 lg:px-16">
         <div className="mt-8 w-full">
           <h2 className="text-3xl mb-4 font-bold text-gray-800 text-center">Lista de Hilos Musicales</h2>
           <div className="overflow-x-auto">
-            <table className="min-w-full bg-white">
+            <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
               <thead>
                 <tr>
                   <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">ID</th>
-                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-600">Nombre</th>
-                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-600">Musical</th>
-                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-600">Imagen</th>
-                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-600">Usuario</th>
-                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-600">Acciones</th>
+                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">Nombre</th>
+                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">Musical</th>
+                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">Imagen</th>
+                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">Usuario</th>
+                  <th className="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-bold text-gray-600">Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -216,29 +213,27 @@ function HiloMusical() {
                     <td className="py-2 px-4 border-b text-center border-gray-200 text-gray-800">{hilo.id_hilo}</td>
                     <td className="py-2 px-4 border-b text-center border-gray-200 text-gray-800">{hilo.nombre}</td>
                     <td className="py-2 px-4 border-b text-center border-gray-200 text-gray-800">
-                      <audio id="stream" controls preload="none" style={{ width: "60%", maxWidth: "500px" }}>
+                      <audio id="stream" controls preload="none" className="w-40 mx-auto">
                         <source src={transformDropboxUrl(hilo.url_musical)} type="audio/mpeg" />
                       </audio>
                     </td>
                     <td className="py-2 px-4 border-b text-center border-gray-200 text-gray-800">
-                      <img src={transformDropboxUrl(hilo.url_image)} alt="Imagen del Hilo Musical" className="w-40 h-24 object-cover rounded" />
+                      <img src={transformDropboxUrl(hilo.url_image)} alt="Imagen del Hilo Musical" className="w-40 h-24 object-cover rounded mx-auto" />
                     </td>
                     <td className="py-2 px-4 border-b text-center border-gray-200 text-gray-800">
                       {usuarios.find(usuario => usuario.id_usuario === hilo.fk_usuario)?.nombre}
                     </td>
                     <td className="py-2 px-4 border-b border-gray-200 text-gray-800 text-center">
-                      <div className="pb-2">
+                      <div className="flex flex-col space-y-2">
                         <button
                           onClick={() => handleEdit(hilo)}
-                          className="mr-2 py-1 px-3 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600"
+                          className="py-1 px-3 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition duration-300"
                         >
                           Editar
                         </button>
-                      </div>
-                      <div className="pb-2">
                         <button
                           onClick={() => handleDelete(hilo.id_hilo)}
-                          className="py-1 px-3 bg-red-500 text-white font-semibold rounded hover:bg-red-600"
+                          className="py-1 px-3 bg-red-500 text-white font-semibold rounded hover:bg-red-600 transition duration-300"
                         >
                           Eliminar
                         </button>
@@ -252,7 +247,7 @@ function HiloMusical() {
         </div>
       </div>
 
-      <footer className="mt-8 text-gray-600 text-center w-full">
+      <footer className="mt-8 text-gray-600 text-center w-full py-4">
         <p>Derechos de Autor Reservados.</p>
         <p>Implementado por Dev Andres Ragua.</p>
       </footer>

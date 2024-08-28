@@ -23,7 +23,7 @@ const NavBarPublic = ({ selectedRadio, setSelectedRadio, radios }) => {
 
   return (
     <nav className="bg-gray-800 fixed w-full z-10 top-0 shadow">
-      <div className="container mx-auto flex flex-wrap items-center justify-between p-2 ">
+      <div className="container mx-auto flex flex-wrap items-center justify-between p-2">
         {/* Logo */}
         <div className="flex items-center">
           <Link to="/">
@@ -110,17 +110,6 @@ const NavBarPublic = ({ selectedRadio, setSelectedRadio, radios }) => {
               <span
                 className="block py-2 lg:py-0 text-sm hover:text-gray-400 cursor-pointer"
                 onClick={() => {
-                  handleScrollToSection('publicidades');
-                  setIsOpen(false);
-                }}
-              >
-                PUBLICIDAD
-              </span>
-            </li>
-            <li className="mt-4 lg:mt-0 lg:ml-4">
-              <span
-                className="block py-2 lg:py-0 text-sm hover:text-gray-400 cursor-pointer"
-                onClick={() => {
                   handleScrollToSection('programas');
                   setIsOpen(false);
                 }}
@@ -149,6 +138,16 @@ const NavBarPublic = ({ selectedRadio, setSelectedRadio, radios }) => {
               >
                 CONTACTO
               </span>
+            </li>
+            {/* Agregar Botón de Televisión */}
+            <li className="mt-4 lg:mt-0 lg:ml-4">
+              <Link
+                to={`/television/${encodeURIComponent(radios.find(radio => radio.id === selectedRadio)?.nombre || 'Radio')}`}
+                className="block py-2 lg:py-0 text-sm hover:text-gray-400 bg-yellow-500 text-black px-3 rounded font-bold no-underline"
+                onClick={() => setIsOpen(false)}
+              >
+                LA TELEVISIÓN
+              </Link>
             </li>
           </ul>
         </div>

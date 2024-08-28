@@ -26,40 +26,40 @@ const Login = () => {
   }, []);
 
   return (
-    <div className="flex flex-col bg-gray-200 h-screen">
+    <div className="flex flex-col bg-gray-100 h-screen">
       <div className="flex justify-center items-center flex-grow">
-        <div className="bg-secondary p-10 rounded-lg shadow-lg w-full max-w-md">
-          <h2 className="text-2xl mb-6 font-semibold-important text-white text-center">Inicio de Sesión</h2>
+        <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md border border-gray-300">
+          <h2 className="text-2xl mb-6 font-semibold text-gray-700 text-center">Inicio de Sesión</h2>
           {error && <p className="text-red-500 text-center mb-4">{error}</p>}
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label className="block text-white">Correo Electrónico</label>
+              <label className="block text-gray-700 font-medium mb-1">Correo Electrónico</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 border-2 border-yellow-300 rounded"
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
             <div className="mb-4">
-              <label className="block text-white">Contraseña</label>
+              <label className="block text-gray-700 font-medium mb-1">Contraseña</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border-2 border-yellow-300 rounded"
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
-            <button type="submit" className="w-full py-2 bg-yellow-500 text-white font-semibold rounded hover:bg-yellow-600">
+            <button type="submit" className="w-full py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition duration-300">
               Iniciar Sesión
             </button>
           </form>
         </div>
       </div>
 
-      <footer className="mt-8 text-gray-600 text-center w-full">
+      <footer className="mt-8 text-gray-600 text-center w-full py-4">
         <p>Derechos de Autor Reservados.</p>
         <p>Implementado por Dev Andres Ragua.</p>
       </footer>
