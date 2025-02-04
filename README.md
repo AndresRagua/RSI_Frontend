@@ -1,73 +1,59 @@
-# Getting Started with Create React App
+# 🎨 RSI Frontend  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+🚀 **Frontend en React con Tailwind CSS** para la plataforma RSI, estructurado con rutas públicas y administrativas.  
 
-## Available Scripts
+## ✨ Características  
+✅ **Desarrollado con React** y estructura modular  
+✅ **Tailwind CSS** para estilos responsivos y modernos  
+✅ **Manejo de rutas** con `react-router-dom`  
+✅ **Componentes reutilizables** (`NavBar`, `Footer`, etc.)  
+✅ **División entre vistas públicas y administrativas**  
+✅ **Optimización con PostCSS y Tailwind**  
 
-In the project directory, you can run:
+## 📂 Estructura del Proyecto  
+```bash
+Frontend_RSI-main/
+│── public/                   # Archivos estáticos y de configuración
+│   ├── index.html            # Archivo base HTML
+│   ├── logo_rs.svg           # Logo del proyecto
+│   ├── manifest.json         # Configuración de PWA
+│   ├── robots.txt            # Reglas para indexación de buscadores
+│── src/                      # Código fuente principal
+│   ├── components/           # Componentes reutilizables
+│   │   ├── AdminNavBar.js
+│   │   ├── PublicNavBar.js
+│   │   ├── Footer.js
+│   ├── pages/admin/          # Páginas del panel de administración
+│   ├── pages/public/         # Páginas de acceso público
+│   ├── App.jsx               # Componente principal
+│   ├── index.js              # Punto de entrada
+│   ├── index.css             # Estilos globales
+│── package.json              # Configuración de dependencias y scripts
+│── package-lock.json         # Bloqueo de versiones de dependencias
+│── tailwind.config.js        # Configuración de Tailwind CSS
+│── postcss.config.js         # Configuración de PostCSS
+│── .gitignore                # Archivos a ignorar en Git
+│── README.md                 # Documentación del proyecto
+```
 
-### `npm start`
+## ⚡ Instalación y Uso  
+### 1️⃣ Clonar el repositorio  
+```bash
+git clone https://github.com/tu-usuario/frontend-rsi.git
+cd frontend-rsi
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 2️⃣ Instalar las dependencias  
+```bash
+npm install
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 3️⃣ Ejecutar el proyecto  
+```bash
+npm run dev
+```
 
-### `npm test`
+🔹 Abre `http://localhost:5173/` en tu navegador para ver la aplicación.  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-# Frontend_RSI
-Frontend de Radio Songs International con React
+## 🔥 Contribuciones  
+Las contribuciones son bienvenidas. Si encuentras un error o deseas mejorar la app, abre un **issue** o envía un **pull request**. 🚀  
