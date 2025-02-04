@@ -17,7 +17,6 @@ Frontend_RSI-main/
 │   ├── index.html            # Archivo base HTML
 │   ├── logo_rs.svg           # Logo del proyecto
 │   ├── manifest.json         # Configuración de PWA
-│   ├── robots.txt            # Reglas para indexación de buscadores
 │── src/                      # Código fuente principal
 │   ├── components/           # Componentes reutilizables
 │   │   ├── AdminNavBar.js
